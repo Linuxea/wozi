@@ -75,14 +75,22 @@
     border: 1px solid #0d73da;
     color:#fff;
 }
+	.btn-primary:hover {
+    	color: #fff;
+    	/* background-color: #286090; */
+   		border-color: #0d73da;
+}
+	.searchMirror{
+		top: 7px;
+    	padding-left: 5px;
+	}
 	</style>
 </head>
 <body>
-
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid"> 
     <div class="navbar-header">
-        <a class="navbar-brand"><strong>我的笔记</strong></a>
+        <a class="navbar-brand"><span class="glyphicon glyphicon-book" style="color:#fff;">&nbsp;</span><strong>我的笔记</strong></a>
     </div>
         <!--向左对齐-->
        <!--  <ul class="nav navbar-nav navbar-left">
@@ -107,9 +115,7 @@
             	<div class="form-group">
                		<input type="text" class="zu-top-search-input" id="q" name="q" autocomplete="off" value="" maxlength="100" placeholder="搜索你的笔记..." role="combobox" aria-autocomplete="list">
             	</div>
-            	<button type="button" class="btn btn-primary btn-xs btn-search ">
-            		<span class="glyphicon glyphicon-zoom-in" style="color: rgb(255, 255, 255);font-size: 20px;background:#0d73da;"></span>
-            	</button>
+            		<span class="searchMirror glyphicon glyphicon-zoom-in" style="color: rgb(255, 255, 255);font-size: 20px;background:#0d73da;"></span>
         	</form>
     	</div>
         <!--向右对齐-->
@@ -121,5 +127,11 @@
     </div>
 </nav>
 
+<script>
+	$("a.navbar-brand").hover(function(){
+		//覆盖掉移动到该文字上面的默认样式
+		$(this).css("color","#fff");
+	});
+</script>
 </body>
 </html>
