@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Bootstrap 实例 - 基本的输入框组</title>
+	<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="../../plugins/js/Jquery-Form.js"></script>
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-body">
+    <nav class="navbar" role="navigation">
+	<div class="container-fluid">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="../index/index.html">我知笔记</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="../index/intro.html">介绍</a></li>
+            <!-- <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Java <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">xx</a></li>
+                    <li><a href="#">xx</a></li>
+                    <li><a href="#">xx</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">xx</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">xx</a></li>
+                </ul>
+            </li> -->
+        </ul>
+         <ul class="nav navbar-nav navbar-right">
+      <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+    </ul>
+    </div>
+	</div>
+</nav>
+		<!-- <div class="panel-footer">面板脚注</div> -->
+    </div>
+</div>
+<div class="container">
+	<div class="msg" style="height:60px;">
+	</div>
+	<form class="form-horizontal" role="form" id="registForm" method="post">
+	<div class="form-group">
+		<label for="firstname" class="col-sm-offset-3 col-sm-2 control-label">名称</label>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" id="" name="tbWoZiUser.userName"
+				   placeholder="请输入名字">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="lastname" class="col-sm-offset-3 col-sm-2 control-label">邮箱</label>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" id="" name="tbWoZiUser.Email"
+				   placeholder="请输入邮箱">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="lastname" class="col-sm-offset-3 col-sm-2 control-label">密码</label>
+		<div class="col-sm-2 col">
+			<input type="text" class="form-control" id="" name="tbWoZiUser.password"
+				   placeholder="请输入密码">
+			<span class="help-block">Use at least 6 characters</span>
+		</div>
+		
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-5 col-sm-2">
+			<button type="button" class="btn btn-primary btn-block" id="submit">注册</button>
+		</div>
+	</div>
+</form>
+</div>
+<script>
+	$(document).on("click","#submit",function(){
+		$("#registForm").ajaxSubmit({
+			url:"http://localhost:8080/wozi/user/userManager_ajaxRegist",
+			dataType:"json",
+			success:function(rs){
+				console.log(rs.data);
+			}
+		});
+	});
+</script>
+</body>
+</html>
