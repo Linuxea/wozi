@@ -35,8 +35,12 @@ public class UserManagerServiceImpl implements UserManagerService {
 		this.userManagerDAO.userRegist(tbWoZiUser);
 	}
 	@Override
-	public boolean userLogin(TbWoZiUser tbWoZiUser) throws Exception {
-		return this.userManagerDAO.userLogin(tbWoZiUser);
+	public boolean ajaxLogin(TbWoZiUser tbWoZiUser) throws Exception {
+		return this.userManagerDAO.ajaxLogin(tbWoZiUser);
+	}
+	@Override
+	public boolean isUserExist(TbWoZiUser tbWoZiUser) throws Exception {
+		return this.userManagerDAO.isUserExist(tbWoZiUser);
 	}
 	
 }

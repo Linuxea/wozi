@@ -59,7 +59,7 @@ public class UserManagerDAOImpl implements UserManagerDAO {
 		});
 	}
 	@Override
-	public boolean userLogin(TbWoZiUser tbWoZiUser) throws Exception {
+	public boolean ajaxLogin(TbWoZiUser tbWoZiUser) throws Exception {
 		Map<String,Integer> count = new HashMap<>();
 		count.put("count", 0);
 		String countSql = "select count(*) from tbwoziuser user where user.username = ? and user.password = ?";
@@ -69,6 +69,28 @@ public class UserManagerDAOImpl implements UserManagerDAO {
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, tbWoZiUser.getUserName());
 				ps.setString(2, tbWoZiUser.getPassword());
+			}
+		}, new  RowCallbackHandler(){
+			@Override
+			public void processRow(ResultSet rs) throws SQLException {
+					if(!rs.wasNull()){
+						int a = rs.getInt(1);
+						count.put("count", a);
+					}
+			}
+		});
+		return count.get("count")>0;
+	}
+	@Override
+	public boolean isUserExist(TbWoZiUser tbWoZiUser) throws Exception {
+		Map<String,Integer> count = new HashMap<>();
+		count.put("count", 0);
+		String countSql = "select count(*) from tbwoziuser user where user.username = ?";
+		jdbcTemplate.query(countSql, new PreparedStatementSetter(){
+
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, tbWoZiUser.getUserName());
 			}
 		}, new  RowCallbackHandler(){
 			@Override

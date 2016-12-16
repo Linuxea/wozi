@@ -48,8 +48,10 @@ public class UserManagerAction extends BaseAction {
 	}
 	
 	public String ajaxRegist() throws Exception {
-		//服务器端验证注册账号信息
-		if(null==tbWoZiUser || tbWoZiUser.getUserName().equals("")
+		boolean isUserExist = this.userManagerService.isUserExist(tbWoZiUser);
+		if(isUserExist){
+			this.setActionResult("-1", "用户名称已经存在");
+		}else if(null==tbWoZiUser || tbWoZiUser.getUserName().equals("")
 				|| tbWoZiUser.getPassword().equals("")){
 			this.setActionResult("-1", "请确认信息完整");
 		}else if(!tbWoZiUser.getPassword().equals(confirmPassword)){
@@ -62,8 +64,8 @@ public class UserManagerAction extends BaseAction {
 	}
 	
 	public String ajaxLogin() throws Exception {
-		boolean isExistUser = this.userManagerService.userLogin(tbWoZiUser);
-		if(isExistUser){
+		boolean isUserExist = this.userManagerService.ajaxLogin(tbWoZiUser);
+		if(isUserExist){
 			this.setActionResult("0", tbWoZiUser.getUserName()+"登录成功");
 		}else{
 			this.setActionResult("-1", tbWoZiUser.getUserName()+"登录失败");

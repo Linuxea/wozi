@@ -13,6 +13,8 @@ public interface UserManagerService {
 
 	void userRegist(TbWoZiUser tbWoZiUser) throws Exception;
 
-	boolean userLogin(TbWoZiUser tbWoZiUser) throws Exception;
+	boolean ajaxLogin(TbWoZiUser tbWoZiUser) throws Exception;
+
+	boolean isUserExist(TbWoZiUser tbWoZiUser) throws Exception;
 
 }
