@@ -76,13 +76,15 @@
 			dataType:"json",
 			success:function(rs){
 				if(rs.code!=="0"){
-					if(!$(".alert").length){
-						var appendStr = "<div class=\"alert alert-warning\">"+
-						"<a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>"+
-						"<strong>警告！</strong>登录名称或者密码有误"+
-						"</div>";
-						$(".msg").append(appendStr);
+					if($(".alert").length){
+						$(".alert").remove();
 					}
+					var appendStr = "<div class=\"alert alert-warning\">"+
+					"<a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>"+
+					"<strong>警告！</strong>"+
+					rs.desc + 
+					"</div>";
+					$(".msg").append(appendStr);
 				}
 			}
 		});
