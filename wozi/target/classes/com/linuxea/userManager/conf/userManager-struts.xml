@@ -7,7 +7,7 @@
     <package name="userBackEnd" namespace="/user" extends="json-default" >
         <action name="userManager_*" class="userManagerAction" method="{1}"><!-- com.linuxea.userManager.action.U -->
         	<result type="json" name="success">
-        		<param name="root">map</param> 
+        		<param name="root">map</param>
         	</result>
         </action>
     </package>
