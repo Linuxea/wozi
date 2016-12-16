@@ -21,6 +21,15 @@ public class UserManagerAction extends BaseAction {
 	private Logger logger = Logger.getLogger(UserManagerAction.class);
 	private UserManagerService userManagerService;
 	private TbWoZiUser tbWoZiUser;
+	private String confirmPassword;
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 	public TbWoZiUser getTbWoZiUser() {
 		return tbWoZiUser;
 	}
@@ -39,8 +48,16 @@ public class UserManagerAction extends BaseAction {
 	}
 	
 	public String ajaxRegist() throws Exception {
-		this.userManagerService.userRegist(tbWoZiUser);
-		this.setActionResult("0", "新增用户"+tbWoZiUser.getUserName()+"成功");
+		//服务器端验证注册账号信息
+		if(null==tbWoZiUser || tbWoZiUser.getUserName().equals("")
+				|| tbWoZiUser.getPassword().equals("")){
+			this.setActionResult("-1", "请确认信息完整");
+		}else if(!tbWoZiUser.getPassword().equals(confirmPassword)){
+			this.setActionResult("-1", "密码不一致");
+		}else{
+			this.userManagerService.userRegist(tbWoZiUser);
+			this.setActionResult("0", "新增用户"+tbWoZiUser.getUserName()+"成功");
+		}
 		return this.SUCCESS;
 	}
 	
