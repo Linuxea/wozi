@@ -12,4 +12,5 @@ sql:  "create table tb_wozi_note_menu (
     constraint foreign key (ref_user) references tbwoziuser(id) ON delete cascade
     )engine=innoDB default charset=utf8
 )",
+附： 在做的时候思考了一下，考虑到实现上的一些问题，以及目录的更好管理，设定每个用户都用一个root根目录。
 <!-- 2016-12-17 end -->
