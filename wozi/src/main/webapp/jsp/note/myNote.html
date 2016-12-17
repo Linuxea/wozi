@@ -226,24 +226,81 @@
 	            'print', 'preview', 'searchreplace', 'drafts', 'help'
 	        ]],
 		});//初始化编辑器
-	    $('#jstree').jstree({
+	    $('#jstree').on("changed.jstree", function (e, data) {
+	        console.log(data.changed.selected); // newly selected
+	        console.log(data.changed.deselected); // newly deselected
+	      }).jstree({
 	    	"core": {
-	    	    'data' : [
-	    	        { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
-	    	        { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1" },
-	    	        { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
-	    	        { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
-	    	        { "id" : "ajson5", "parent" : "ajson2", "text" : "Root node 2" },
-	    	        { "id" : "ajson6", "parent" : "ajson2", "text" : "Root node 2" },
-	    	        { "id" : "ajson7", "parent" : "ajson2", "text" : "Root node 2" },
-	    	        { "id" : "ajson53", "parent" : "ajson6", "text" : "Root node 2" },
-	    	        { "id" : "ajson23", "parent" : "ajson6", "text" : "Root node 2" },
-	    	        { "id" : "ajson73", "parent" : "ajson6", "text" : "Root node 2" },
-	    	        { "id" : "ajson5333", "parent" : "ajson53", "text" : "Root node 2" },
-	    	        { "id" : "ajson2333", "parent" : "ajson53", "text" : "Root node 2" },
-	    	        { "id" : "ajson7333", "parent" : "ajson53", "text" : "Root node 2" },
-	    	     ]
-	    	 }
+	    		"data": [
+	    		    {
+	    		      "flag": "0",
+	    		      "id": "1",
+	    		      "parent": "#",
+	    		      "refUser": "466a37d9-935b-47b3-bdea-2250fe974a57",
+	    		      "text": "root1"
+	    		    },
+	    		    {
+	    		      "flag": "0",
+	    		      "id": "2",
+	    		      "parent": "#",
+	    		      "refUser": "466a37d9-935b-47b3-bdea-2250fe974a57",
+	    		      "text": "root2"
+	    		    },
+	    		    {
+	    		      "flag": "0",
+	    		      "id": "3",
+	    		      "parent": "1",
+	    		      "refUser": "466a37d9-935b-47b3-bdea-2250fe974a57",
+	    		      "text": "root1的文件"
+	    		    },
+	    		    {
+	    		      "flag": "0",
+	    		      "id": "4",
+	    		      "parent": "1",
+	    		      "refUser": "466a37d9-935b-47b3-bdea-2250fe974a57",
+	    		      "text": "root1的文件2"
+	    		    },
+	    		    {
+	    		      "flag": "0",
+	    		      "id": "5",
+	    		      "parent": "3",
+	    		      "refUser": "466a37d9-935b-47b3-bdea-2250fe974a57",
+	    		      "text": "root1下的文件"
+	    		    },
+	    		    {
+	    		      "flag": "1",
+	    		      "id": "6",
+	    		      "parent": "5",
+	    		      "refUser": "466a37d9-935b-47b3-bdea-2250fe974a57",
+	    		      "text": "root1下的文件的文件"
+	    		    }
+	    		  ],
+	    		  "check_callback" : true,
+	    		  "massload" : {
+	    		      "url" : "/some/path",
+	    		      "data" : function (nodes) {
+	    		    	  console.log(nodes);
+	    		        return { "ids" : nodes.join(",") };
+	    		      }
+	    		    }
+	    	 },
+	    	 "checkbox" : {
+	    	      "keep_selected_style" : false
+	    	    },
+	    	    "plugins" :  [
+	    	    	//"checkbox",
+	    	    	"contextmenu",//右键菜单
+	    	    	//"dnd", //可移动
+	    	    	//"massload",
+	    	    	//"search",
+	    	    	//"sort",
+	    	    	"state",
+	    	    	//"types",
+	    	    	//"unique",
+	    	    	//"wholerow", 全行
+	    	    	"changed",
+	    	    	"conditionalselect"
+	    	    ]
 	    });
 	  });
 </script>

@@ -5,7 +5,7 @@
  
 <struts>
     <package name="note" namespace="/note" extends="json-default" >
-        <action name="noteManager_*" class="userManagerAction" method="{1}">
+        <action name="noteManager_*" class="noteManagerAction" method="{1}">
         	<result type="json" name="success">
         		<param name="root">map</param>
         	</result>

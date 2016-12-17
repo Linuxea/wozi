@@ -73,6 +73,10 @@ public class UserManagerAction extends BaseAction {
 		return super.SUCCESS;
 	}
 	
+	public String test() {
+		this.setActionResult("0", "success");
+		return this.SUCCESS;
+	}
 	
 	
 }

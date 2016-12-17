@@ -30,6 +30,11 @@ create table tb_wozi_note_menu (
     ref_user varchar(36) ,
     constraint foreign key (ref_user) references tbwoziuser(id) ON delete cascade
     )engine=innoDB default charset=utf8
+    
+   更改 tb_wozi_note_menu 表 添加一个状态字段 isDelete  0表示未删除状态  1表示删除状态
+   	ALTER TABLE `wozi`.`tb_wozi_note_menu` 
+	ADD COLUMN `isDelete` VARCHAR(1) NULL DEFAULT 0 AFTER `ref_user`;
+
 /* 2016-12-17 end */
 
 

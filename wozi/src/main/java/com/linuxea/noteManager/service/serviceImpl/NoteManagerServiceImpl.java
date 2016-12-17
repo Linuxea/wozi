@@ -1,6 +1,5 @@
 package com.linuxea.noteManager.service.serviceImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -32,10 +31,8 @@ public class NoteManagerServiceImpl implements NoteManagerService {
 	/*
 	 * 处理并封装用户目录信息
 	 */
-	public void handleMenuInfo(String id)throws Exception {
-		List<TbWoziNoteMenuPO> menuList = new ArrayList<>();
-		menuList = this.noteManagerDAO.getMenuInfoByUserId(id);
-		
+	public List<TbWoziNoteMenuPO> handleMenuInfo(String id)throws Exception {
+		return this.noteManagerDAO.getMenuInfoByUserId(id);
 	}
 	
 }

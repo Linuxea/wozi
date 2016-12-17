@@ -39,7 +39,7 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 	@SuppressWarnings("all")
 	@Override
 	public List<TbWoziNoteMenuPO> getMenuInfoByUserId(String id) throws Exception {
-		String dataSql = "select * from tb_wozi_note_menu where id = ?";
+		String dataSql = "select * from tb_wozi_note_menu where ref_user = ?";
 		List<TbWoziNoteMenuPO> menuList = new ArrayList<>();
 		menuList = (List<TbWoziNoteMenuPO>) jdbcTemplate.query(dataSql, new PreparedStatementSetter(){
 			@Override
