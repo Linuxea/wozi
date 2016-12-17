@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-
 import com.linuxea.linuxea.action.BaseAction;
 import com.linuxea.userManager.service.UserManagerService;
 import com.linuxea.userManager.vo.TbWoZiUser;
@@ -66,6 +65,7 @@ public class UserManagerAction extends BaseAction {
 	public String ajaxLogin() throws Exception {
 		boolean isUserExist = this.userManagerService.ajaxLogin(tbWoZiUser);
 		if(isUserExist){
+			super.getSession().put("user", tbWoZiUser);//存放用户信息
 			this.setActionResult("0", tbWoZiUser.getUserName()+"登录成功");
 		}else{
 			this.setActionResult("-1", tbWoZiUser.getUserName()+"登录失败");

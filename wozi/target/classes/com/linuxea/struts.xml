@@ -6,6 +6,7 @@
 	<include file="struts-plugin.xml,"></include>
 	<include file="struts-default.xml"></include>
 	<include file="userManager/conf/userManager-struts.xml"></include>
+	<include file="noteManager/conf/noteManager-struts.xml"></include>
    	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<constant name="struts.devMode" value="true" />
 	
