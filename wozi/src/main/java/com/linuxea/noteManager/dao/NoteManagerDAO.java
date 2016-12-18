@@ -27,4 +27,10 @@ public interface NoteManagerDAO {
 	 * 重命名目录节点名称
 	 */
 	public boolean reNameMenuNode(String currentMenuNodeId,String newTextName) throws Exception;
+	
+	/*
+	 * 删除目录及其子目录的两个方法
+	 */
+	public boolean deleteMenuNode(String currentMenuNodeId) throws Exception ;
+	public boolean deleteMenuNodeandNode(String currentMenuNodeId) throws Exception ;
 }

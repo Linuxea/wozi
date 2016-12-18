@@ -95,4 +95,29 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 		});
 		return true;
 	}
+	
+	public boolean deleteMenuNode(String currentMenuNodeId) throws Exception {
+		//删除当前目录
+		String dataSql = "delete from tb_wozi_note_menu where id = ?";
+		jdbcTemplate.update(dataSql, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, currentMenuNodeId);
+			}
+		});
+		return true;
+	}
+	
+	public boolean deleteMenuNodeandNode(String currentMenuNodeId) throws Exception {
+		//删除该目录下的子目录
+		String dataSql2 = "delete from tb_wozi_note_menu where parent = ?";
+		jdbcTemplate.update(dataSql2, new PreparedStatementSetter(){
+
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, currentMenuNodeId);
+			}
+		});
+		return true;		
+	}
 }

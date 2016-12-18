@@ -42,5 +42,14 @@ public class NoteManagerServiceImpl implements NoteManagerService {
 	public boolean reNameMenuNode(String currentMenuNodeId, String newTextName) throws Exception {
 		return this.noteManagerDAO.reNameMenuNode(currentMenuNodeId, newTextName);
 	}
+	@Override
+	public boolean deleteMenuNode(String curentMenuId) throws Exception {
+		boolean 
+				isSuccessDelMenu = false,
+				isSuccessDelNode = false;
+		isSuccessDelMenu = this.noteManagerDAO.deleteMenuNode(curentMenuId);
+		isSuccessDelNode = this.noteManagerDAO.deleteMenuNodeandNode(curentMenuId);
+		return isSuccessDelMenu &&  isSuccessDelNode;
+	}
 	
 }

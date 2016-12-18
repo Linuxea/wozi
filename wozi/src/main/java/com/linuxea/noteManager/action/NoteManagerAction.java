@@ -90,4 +90,13 @@ public class NoteManagerAction extends BaseAction{
 		return this.SUCCESS;
 	}
 	
+	public String delMenuNode() throws Exception {
+		boolean isSuccessDel = this.noteManagerService.deleteMenuNode(currentMenuNodeId);
+		if(isSuccessDel) {
+			this.setActionResult("0", "成功删除目录");
+		}else{
+			this.setActionResult("0", "删除目录失败");
+		}
+		return this.SUCCESS;
+	}
 }

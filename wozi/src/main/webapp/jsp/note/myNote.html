@@ -272,6 +272,10 @@
 						console.log("当前选中的是"+currentMenuId);
 						console.log(e);//e.old oldname  e.text  newName
 						reNameMenuNode(currentMenuId, e.text);
+					})
+					.bind("delete_node.jstree", function(data, e){//delete_node
+						console.log(e);//e.node.id  存放着欲删除的目录id
+						delMenu(e.node.id);
 					});
 			}
 		});
@@ -323,7 +327,6 @@
 	
 	//修改节点名称
 	function reNameMenuNode(currentMenuId, newTextName) {
-		debugger;
 		$.ajax({
 			url:"http://localhost:8080/wozi/note/noteManager_reNameMenuNode",
 			dataType:"json",
@@ -341,6 +344,24 @@
 			fail:function(){
 				console.log("error..");
 			}
+		});
+	}
+	
+	function delMenu(currentMenuId) {
+		$.ajax({
+			url:"http://localhost:8080/wozi/note/noteManager_delMenuNode",
+			data:{
+				"currentMenuNodeId":currentMenuId,
+			},
+			dataType:"json",
+			success:function(rs){
+				if(rs.code === "0"){
+					console.log(rs.desc);
+				}
+			},
+			fail:function(){
+				
+			},
 		});
 	}
 </script>
