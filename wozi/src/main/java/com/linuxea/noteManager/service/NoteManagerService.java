@@ -13,4 +13,14 @@ import com.linuxea.noteManager.po.TbWoziNoteMenuPO;
 
 public interface NoteManagerService {
 	public List<TbWoziNoteMenuPO> handleMenuInfo(String id)throws Exception ;
+	
+	/*
+	 * 创建新目录节点
+	 */
+	public boolean createMenuNode(String directMenuParentId,String userId) throws Exception;
+	
+	/*
+	 * 重命名目录节点名称
+	 */
+	public boolean reNameMenuNode(String currentMenuNodeId,String newTextName) throws Exception;
 }

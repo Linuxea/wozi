@@ -34,5 +34,13 @@ public class NoteManagerServiceImpl implements NoteManagerService {
 	public List<TbWoziNoteMenuPO> handleMenuInfo(String id)throws Exception {
 		return this.noteManagerDAO.getMenuInfoByUserId(id);
 	}
+	@Override
+	public boolean createMenuNode(String directMenuParentId, String userId) throws Exception {
+		return this.noteManagerDAO.createMenuNode(directMenuParentId, userId);
+	}
+	@Override
+	public boolean reNameMenuNode(String currentMenuNodeId, String newTextName) throws Exception {
+		return this.noteManagerDAO.reNameMenuNode(currentMenuNodeId, newTextName);
+	}
 	
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.linuxea.linuxea.action.BaseAction;
 import com.linuxea.noteManager.po.TbWoziNoteMenuPO;
 import com.linuxea.noteManager.service.NoteManagerService;
+import com.linuxea.userManager.vo.TbWoZiUser;
 
 /*
  *@author Linuxea
@@ -22,7 +23,33 @@ import com.linuxea.noteManager.service.NoteManagerService;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class NoteManagerAction extends BaseAction{
 	
+	public String getCurrentMenuNodeId() {
+		return currentMenuNodeId;
+	}
+
+	public void setCurrentMenuNodeId(String currentMenuNodeId) {
+		this.currentMenuNodeId = currentMenuNodeId;
+	}
+
+	public String getNewTextName() {
+		return newTextName;
+	}
+
+	public void setNewTextName(String newTextName) {
+		this.newTextName = newTextName;
+	}
+
 	private NoteManagerService noteManagerService;
+	private String directMenuParentId;
+	private String currentMenuNodeId;
+	private String newTextName;
+	public String getDirectMenuParentId() {
+		return directMenuParentId;
+	}
+
+	public void setDirectMenuParentId(String directMenuParentId) {
+		this.directMenuParentId = directMenuParentId;
+	}
 
 	public NoteManagerService getNoteManagerService() {
 		return noteManagerService;
@@ -43,10 +70,24 @@ public class NoteManagerAction extends BaseAction{
 		return this.SUCCESS;
 	}
 	
-	public String test() {
-		this.setActionResult("0", "success");
+	
+	public String ajaxAddMenuNode() throws Exception {
+		TbWoZiUser tbWoZiUser = (TbWoZiUser) super.getSession().get("user");
+		if(this.noteManagerService.createMenuNode(directMenuParentId, "466a37d9-935b-47b3-bdea-2250fe974a57")){
+			this.setActionResult("0", "创建新节点成功");
+		}
 		return this.SUCCESS;
 	}
 	
+	public String reNameMenuNode() throws Exception{
+		boolean isSuccess = false;
+		isSuccess = this.noteManagerService.reNameMenuNode(currentMenuNodeId, newTextName);
+		if(isSuccess) {
+			this.setActionResult("0", "更改节点名称成功");
+		}else{
+			this.setActionResult("-1", "更改节点名称失败");
+		}
+		return this.SUCCESS;
+	}
 	
 }

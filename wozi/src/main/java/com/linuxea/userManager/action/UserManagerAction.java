@@ -57,6 +57,7 @@ public class UserManagerAction extends BaseAction {
 			this.setActionResult("-1", "密码不一致");
 		}else{
 			this.userManagerService.userRegist(tbWoZiUser);
+			super.getSession().put("user", tbWoZiUser);//存放用户信息
 			this.setActionResult("0", "新增用户"+tbWoZiUser.getUserName()+"成功");
 		}
 		return this.SUCCESS;
@@ -72,11 +73,4 @@ public class UserManagerAction extends BaseAction {
 		}
 		return super.SUCCESS;
 	}
-	
-	public String test() {
-		this.setActionResult("0", "success");
-		return this.SUCCESS;
-	}
-	
-	
 }

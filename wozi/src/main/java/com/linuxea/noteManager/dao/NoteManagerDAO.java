@@ -17,4 +17,14 @@ public interface NoteManagerDAO {
 	 * 获取某用户的笔记目录信息
 	 */
 	public List<TbWoziNoteMenuPO> getMenuInfoByUserId(String id)throws Exception;
+	
+	/*
+	 * 创建新目录节点
+	 */
+	public boolean createMenuNode(String directMenuParentId,String userId) throws Exception;
+	
+	/*
+	 * 重命名目录节点名称
+	 */
+	public boolean reNameMenuNode(String currentMenuNodeId,String newTextName) throws Exception;
 }

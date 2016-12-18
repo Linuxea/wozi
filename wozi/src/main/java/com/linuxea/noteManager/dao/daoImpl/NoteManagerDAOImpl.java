@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -63,4 +64,35 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 			return menu;
 			}
 		}
+
+	@Override
+	public boolean createMenuNode(String directMenuParentId, String userId) throws Exception {
+		String dataSql = "insert into tb_wozi_note_menu (id,parent,text,flag,ref_user,isDelete) "
+				+ "values (?,?,?,?,?,?);";
+		jdbcTemplate.update(dataSql, new PreparedStatementSetter(){
+
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, UUID.randomUUID().toString());
+				ps.setString(2, directMenuParentId);
+				ps.setString(3, "New node");
+				ps.setString(4, "0");
+				ps.setString(5, userId);
+				ps.setString(6, "0");
+			}
+		});
+		return true;
+	}
+	@Override
+	public boolean reNameMenuNode(String currentMenuNodeId, String newTextName) throws Exception {
+		String dataSql = "update tb_wozi_note_menu set text = ? where id=?";
+		jdbcTemplate.update(dataSql, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, newTextName);
+				ps.setString(2, currentMenuNodeId );
+			}
+		});
+		return true;
+	}
 }
