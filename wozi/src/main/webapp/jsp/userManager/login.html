@@ -76,7 +76,9 @@
 			url:"http://localhost:8080/wozi/user/userManager_ajaxLogin",
 			dataType:"json",
 			success:function(rs){
-				if(rs.code!=="0"){
+				if(rs.code==="0"){
+					window.location.href="jsp/note/myNote.html?name=" + rs.data;
+				}else if(rs.code!=="0"){
 					if($(".alert").length){
 						$(".alert").remove();
 					}

@@ -66,7 +66,7 @@ public class UserManagerAction extends BaseAction {
 		boolean isUserExist = this.userManagerService.ajaxLogin(tbWoZiUser);
 		if(isUserExist){
 			super.getSession().put("user", tbWoZiUser);//存放用户信息
-			this.setActionResult("0", tbWoZiUser.getUserName()+"登录成功");
+			this.setActionResult("0", tbWoZiUser.getUserName()+"登录成功",tbWoZiUser.getUserName());
 		}else{
 			this.setActionResult("-1", tbWoZiUser.getUserName()+"登录失败");
 		}

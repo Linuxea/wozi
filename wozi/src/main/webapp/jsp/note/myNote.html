@@ -159,9 +159,9 @@
     	</div>
         <!--向右对齐-->
         <div class="nav navbar-nav navbar-right">
-        	 <button type="button" class="btn btn-default navbar-btn">
-        	 	扭断翅膀的猪
-        	</button>
+        	 <button type="button" class="btn btn-default navbar-btn user-btn">
+        	 	<!--  此处显示当前登录用户名称  -->
+         	</button>
         </div>
     </div>
 </nav>
@@ -207,13 +207,58 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="ueditor.all.min.js"> </script>
- <script type="text/javascript" charset="utf-8" src="lang/zh-cn/zh-cn.js"></script>
-<script>	$("a.navbar-brand").hover(function(){
+<script type="text/javascript" charset="utf-8" src="lang/zh-cn/zh-cn.js"></script>
+<script src="plugins/js/common.js"></script>
+<script>	
+	$("a.navbar-brand").hover(function(){
 		//覆盖掉移动到该文字上面的默认样式
 		$(this).css("color","#fff");
 	});
 	
 	$(function () {
+		var params = window.location.search;
+		var paramObj = handleSearchParams(params);
+		$("button.user-btn").text(paramObj.name);
+		//取得用户目录json格式数据
+		$.ajax({
+			url:"http://localhost:8080/wozi/note/noteManager_handleNoteMenu",
+			dataType:"json",
+			success:function(rs) {
+				 $('#jstree').on("changed.jstree", function (e, data) {
+				        console.log(data.changed.selected); // newly selected
+				        console.log(data.changed.deselected); // newly deselected
+				      }).jstree({
+				    	"core": {
+				    		"data": rs.data,
+				    		  "check_callback" : true,
+				    		  "massload" : {
+				    		      "url" : "/some/path",
+				    		      "data" : function (nodes) {
+				    		    	  console.log(nodes);
+				    		        return { "ids" : nodes.join(",") };
+				    		      }
+				    		    },
+				    	 },
+				    	 "checkbox" : {
+				    	      "keep_selected_style" : false
+				    	    },
+				    	    "plugins" :  [
+				    	    	//"checkbox",
+				    	    	"contextmenu",//右键菜单
+				    	    	//"dnd", //可移动
+				    	    	//"massload",
+				    	    	//"search",
+				    	    	//"sort",
+				    	    	"state",
+				    	    	//"types",
+				    	    	//"unique",
+				    	    	"wholerow", //全行
+				    	    	"changed",
+				    	    	"conditionalselect"
+				    	    ]
+				    });
+			}
+		});
 		var ue = UE.getEditor('editor',{
 			"initialFrameHeight":380, //初始化高度
 			"initialContent":"",
@@ -232,83 +277,12 @@
 	            'print', 'preview', 'searchreplace', 'drafts', 'help'
 	        ]],
 		});//初始化编辑器
-	    $('#jstree').on("changed.jstree", function (e, data) {
-	        console.log(data.changed.selected); // newly selected
-	        console.log(data.changed.deselected); // newly deselected
-	      }).jstree({
-	    	"core": {
-	    		"data": [
-	    		    {
-	    		      "flag": "0",
-	    		      "id": "1",
-	    		      "parent": "#",
-	    		      "refUser": "466a37d9-935b-47b3-bdea-2250fe974a57",
-	    		      "text": "root1"
-	    		    },
-	    		    {
-	    		      "flag": "0",
-	    		      "id": "2",
-	    		      "parent": "#",
-	    		      "refUser": "466a37d9-935b-47b3-bdea-2250fe974a57",
-	    		      "text": "root2"
-	    		    },
-	    		    {
-	    		      "flag": "0",
-	    		      "id": "3",
-	    		      "parent": "1",
-	    		      "refUser": "466a37d9-935b-47b3-bdea-2250fe974a57",
-	    		      "text": "root1的文件"
-	    		    },
-	    		    {
-	    		      "flag": "0",
-	    		      "id": "4",
-	    		      "parent": "1",
-	    		      "refUser": "466a37d9-935b-47b3-bdea-2250fe974a57",
-	    		      "text": "root1的文件2"
-	    		    },
-	    		    {
-	    		      "flag": "0",
-	    		      "id": "5",
-	    		      "parent": "3",
-	    		      "refUser": "466a37d9-935b-47b3-bdea-2250fe974a57",
-	    		      "text": "root1下的文件"
-	    		    },
-	    		    {
-	    		      "flag": "1",
-	    		      "id": "6",
-	    		      "parent": "5",
-	    		      "refUser": "466a37d9-935b-47b3-bdea-2250fe974a57",
-	    		      "text": "root1下的文件的文件"
-	    		    }
-	    		  ],
-	    		  "check_callback" : true,
-	    		  "massload" : {
-	    		      "url" : "/some/path",
-	    		      "data" : function (nodes) {
-	    		    	  console.log(nodes);
-	    		        return { "ids" : nodes.join(",") };
-	    		      }
-	    		    },
-	    	 },
-	    	 "checkbox" : {
-	    	      "keep_selected_style" : false
-	    	    },
-	    	    "plugins" :  [
-	    	    	//"checkbox",
-	    	    	"contextmenu",//右键菜单
-	    	    	//"dnd", //可移动
-	    	    	//"massload",
-	    	    	//"search",
-	    	    	//"sort",
-	    	    	"state",
-	    	    	//"types",
-	    	    	//"unique",
-	    	    	"wholerow", //全行
-	    	    	"changed",
-	    	    	"conditionalselect"
-	    	    ]
-	    });
 	  });
+	
+	//点击用户名称跳转到用户信息详情页面
+	$(document).on("click","button.user-btn", function(){
+		window.location.href = "jsp/userManager/userInfo.html";
+	});
 </script>
 </body>
 </html>
