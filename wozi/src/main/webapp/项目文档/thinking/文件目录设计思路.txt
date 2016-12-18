@@ -20,3 +20,26 @@ sql:  "create table tb_wozi_note_menu (
 根据jstree api，添加新目录的自动命名一个默认名称，保存到数据库
 重命名一个目录 ， 更新到数据库
 <!-- 2016-12-18 end -->
+
+<!-- 2016-12-19 begin -->
+修正
+在页面新创建节点的时候，遇到了重命名的问题：
+具体问题是重命名的节点Id并不是新生成节点的Id,而是右键选中新创建节点的那个id
+所以需要将当前id的字段保存为新生成节点的Id
+而这样的话在数据库中就需要保存节点的生成Id,也就是需要新添加一个字段
+ALTER TABLE `wozi`.`tb_wozi_note_menu` 
+ADD COLUMN `e_node_id` VARCHAR(45) NULL AFTER `isDelete`;
+update:
+应该可以不需要 使用jstree自动生成的Id也可以保证唯一性
+ALTER TABLE `wozi`.`tb_wozi_note_menu` 
+DROP COLUMN `e_node_id`;
+
+将主键字段长度加长
+ALTER TABLE `wozi`.`tb_wozi_note_menu` 
+CHANGE COLUMN `id` `id` VARCHAR(100) NOT NULL ;
+同样parent也需要加长
+ALTER TABLE `wozi`.`tb_wozi_note_menu` 
+CHANGE COLUMN `parent` `parent` VARCHAR(100) NULL DEFAULT '#' ;
+
+
+<!-- 2016-12-19 end -->

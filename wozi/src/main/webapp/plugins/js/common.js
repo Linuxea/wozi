@@ -15,3 +15,12 @@ function handleSearchParams(href){
 		return paramPair;
 	}
 /* 2016-12-18 end  */
+
+/* js生成一段随机id begin 来源stackoverflow */
+function S4() {
+	   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+	}
+function randomId() {
+	   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+	}
+/* js生成一段随机id end 来源stackoverflow */

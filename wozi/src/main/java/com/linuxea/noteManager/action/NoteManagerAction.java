@@ -22,7 +22,16 @@ import com.linuxea.userManager.vo.TbWoZiUser;
 @Controller("noteManagerAction")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class NoteManagerAction extends BaseAction{
+	private String newNodeId;
 	
+	public String getNewNodeId() {
+		return newNodeId;
+	}
+
+	public void setNewNodeId(String newNodeId) {
+		this.newNodeId = newNodeId;
+	}
+
 	public String getCurrentMenuNodeId() {
 		return currentMenuNodeId;
 	}
@@ -73,7 +82,7 @@ public class NoteManagerAction extends BaseAction{
 	
 	public String ajaxAddMenuNode() throws Exception {
 		TbWoZiUser tbWoZiUser = (TbWoZiUser) super.getSession().get("user");
-		if(this.noteManagerService.createMenuNode(directMenuParentId, "466a37d9-935b-47b3-bdea-2250fe974a57")){
+		if(this.noteManagerService.createMenuNode(directMenuParentId,newNodeId, "466a37d9-935b-47b3-bdea-2250fe974a57")){
 			this.setActionResult("0", "创建新节点成功");
 		}
 		return this.SUCCESS;

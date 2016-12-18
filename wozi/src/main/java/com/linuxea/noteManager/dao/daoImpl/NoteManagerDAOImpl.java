@@ -66,14 +66,14 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 		}
 
 	@Override
-	public boolean createMenuNode(String directMenuParentId, String userId) throws Exception {
+	public boolean createMenuNode(String directMenuParentId,String newNodeId, String userId) throws Exception {
 		String dataSql = "insert into tb_wozi_note_menu (id,parent,text,flag,ref_user,isDelete) "
 				+ "values (?,?,?,?,?,?);";
 		jdbcTemplate.update(dataSql, new PreparedStatementSetter(){
 
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, UUID.randomUUID().toString());
+				ps.setString(1, newNodeId);
 				ps.setString(2, directMenuParentId);
 				ps.setString(3, "New node");
 				ps.setString(4, "0");

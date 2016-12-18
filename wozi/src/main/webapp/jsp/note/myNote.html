@@ -221,65 +221,7 @@
 		$("button.user-btn").text(paramObj.name);
 		var currentMenuId;
 		//取得用户目录json格式数据
-		$.ajax({
-			url:"http://localhost:8080/wozi/note/noteManager_handleNoteMenu",
-			dataType:"json",
-			success:function(rs) {
-				 $('#jstree').on("changed.jstree", function (e, data) {
-				        console.log(data.changed.selected); // 左键右键点击目录的id
-				        currentMenuId = data.changed.selected;//保存当前选中的目录id
-				        //console.log(data.changed.deselected); // 跳出某个目录的id
-				      }).jstree({
-				    	"core": {
-				    			"data": rs.data,
-				    		  	"check_callback" : true,
-				    		  	//"multiple" : true,
-				    		    //"animation" : 1,
-				    		  	"massload" : {
-				    		    "url" : "/some/path",
-				    		    "data" : function (nodes) {
-				    		        return { "ids" : nodes.join(",") };
-				    		      }
-				    		    },
-				    	 },
-				    	 		"checkbox" : {
-				    	      	"keep_selected_style" : false
-				    	    },
-				    	    	"plugins" :  [
-				    	    	//"checkbox",
-				    	    	"contextmenu",//右键菜单
-				    	    	//"dnd", //可移动
-				    	    	//"massload",
-				    	    	//"search",
-				    	    	//"sort",
-				    	    	"state",
-				    	    	//"types",
-				    	    	//"unique",
-				    	    	"wholerow", //全行
-				    	    	"changed",
-				    	    	"conditionalselect"
-				    	    ]
-				    })
-				    .bind("create_node.jstree", function(data, e){//创建新目录节点
-						console.log("createa node successfully!");
-						//console.log(data);
-						//console.log(e);//e 的 parent 表示新创建的目录的父目录!
-						createMenuNode(e.parent);
-						
-					})
-					.bind("rename_node.jstree", function(data, e){//修改节点名称
-						console.log("rename..");
-						console.log("当前选中的是"+currentMenuId);
-						console.log(e);//e.old oldname  e.text  newName
-						reNameMenuNode(currentMenuId, e.text);
-					})
-					.bind("delete_node.jstree", function(data, e){//delete_node
-						console.log(e);//e.node.id  存放着欲删除的目录id
-						delMenu(e.node.id);
-					});
-			}
-		});
-		
+		getMenu();
 		var ue = UE.getEditor('editor',{
 			"initialFrameHeight":380, //初始化高度
 			"initialContent":"",
@@ -306,11 +248,11 @@
 	});
 	
 	//创建目录节点
-	function createMenuNode(id){
+	function createMenuNode(parnetId,newNodeId){
 		$.ajax({
 			url:"http://localhost:8080/wozi/note/noteManager_ajaxAddMenuNode",
 			type:"post",
-			data:{"directMenuParentId":id},
+			data:{"directMenuParentId":parnetId,"newNodeId":newNodeId},
 			dataType:"json",
 			success:function(rs){
 				if(rs.code ==="0"){
@@ -331,7 +273,7 @@
 			url:"http://localhost:8080/wozi/note/noteManager_reNameMenuNode",
 			dataType:"json",
 			data:{
-				"currentMenuNodeId":currentMenuId[0],
+				"currentMenuNodeId":currentMenuId,
 				"newTextName":newTextName,
 			},
 			success:function(rs) {
@@ -362,6 +304,70 @@
 			fail:function(){
 				
 			},
+		});
+	}
+	
+	function getMenu() {
+		$.ajax({
+			url:"http://localhost:8080/wozi/note/noteManager_handleNoteMenu",
+			dataType:"json",
+			success:function(rs) {
+				 $('#jstree').jstree({
+				    	"core": {
+				    			"data": rs.data,
+				    		  	"check_callback" : true,
+				    		  	//"multiple" : true,
+				    		    //"animation" : 1,
+				    		  	"massload" : {
+				    		    "url" : "/some/path",
+				    		    "data" : function (nodes) {
+				    		        return { "ids" : nodes.join(",") };
+				    		      },
+				    		    },
+				    	 },
+				    	 		"checkbox" : {
+				    	      	"keep_selected_style" : false
+				    	    },
+				    	    	"plugins" :  [
+				    	    	//"checkbox",
+				    	    	"contextmenu",//右键菜单
+				    	    	//"dnd", //可移动
+				    	    	//"massload",
+				    	    	//"search",
+				    	    	//"sort",
+				    	    	"state",//节点展开状态
+				    	    	//"types",
+				    	    	//"unique",
+				    	    	"wholerow", //全行
+				    	    	"changed",
+				    	    	"conditionalselect",
+				    	    ]
+				    })
+				    .bind("create_node.jstree", function(data, e,str,call){//创建新目录节点
+				    	debugger;
+				    	e.node.text = "newNode";//新创建节点的默认名称
+				    	var id = randomId();
+						console.log("createa node successfully!");
+						console.log(e);//e 的 parent 表示新创建的目录的父目录!
+						createMenuNode(e.parent, id);//e.node.id为自动生成的id
+						currentMenuId = id;
+					})
+					.bind("rename_node.jstree", function(data, e){//修改节点名称
+						console.log("rename..");
+						console.log("当前选中的是"+currentMenuId);
+						console.log(e);//e.old oldname  e.text  newName
+						reNameMenuNode(currentMenuId, e.text);
+					})
+					.bind("delete_node.jstree", function(data, e){//delete_node
+						console.log(e);//e.node.id  存放着欲删除的目录id
+						delMenu(e.node.id);
+					})
+					.bind("changed.jstree", function (e, data) {
+				        console.log(data.changed.selected); // 左键右键点击目录的id
+				        currentMenuId = data.changed.selected;//保存当前选中的目录id
+				        //console.log(data.changed.deselected); // 跳出某个目录的id
+				    });
+			}
 		});
 	}
 </script>

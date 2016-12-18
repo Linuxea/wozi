@@ -37,6 +37,18 @@ create table tb_wozi_note_menu (
 
 /* 2016-12-17 end */
 
+/* 2016-12-18 begin */
+	ALTER TABLE `wozi`.`tb_wozi_note_menu` 
+	ADD COLUMN `e_node_id` VARCHAR(45) NULL AFTER `isDelete`;
+	
+	/* 主键字段加长 */
+	ALTER TABLE `wozi`.`tb_wozi_note_menu` 
+	CHANGE COLUMN `id` `id` VARCHAR(100) NOT NULL ;
+	
+	ALTER TABLE `wozi`.`tb_wozi_note_menu` 
+	CHANGE COLUMN `parent` `parent` VARCHAR(100) NULL DEFAULT '#' ;
+
+/* 2016-12-18 end */
 
 
 

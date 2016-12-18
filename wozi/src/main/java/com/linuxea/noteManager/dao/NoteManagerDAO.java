@@ -21,7 +21,7 @@ public interface NoteManagerDAO {
 	/*
 	 * 创建新目录节点
 	 */
-	public boolean createMenuNode(String directMenuParentId,String userId) throws Exception;
+	public boolean createMenuNode(String directMenuParentId,String newNodeId, String userId) throws Exception;
 	
 	/*
 	 * 重命名目录节点名称
