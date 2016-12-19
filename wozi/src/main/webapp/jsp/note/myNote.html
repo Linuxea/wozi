@@ -302,6 +302,8 @@
 			success:function(rs){
 				if(rs.code === "0"){
 					console.log(rs.desc);
+				}else{
+					alert(rs.desc);
 				}
 			},
 			fail:function(){

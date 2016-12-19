@@ -27,5 +27,5 @@ public interface NoteManagerService {
 	/*
 	 * 删除目录及其子目录
 	 */
-	public boolean deleteMenuNode(String curentMenuId) throws Exception;
+	public boolean deleteMenuNode(String curentMenuId ,String userId) throws Exception;
 }

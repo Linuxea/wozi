@@ -4,13 +4,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.RowMapperResultSetExtractor;
 import org.springframework.stereotype.Repository;
@@ -27,6 +31,7 @@ import com.linuxea.noteManager.po.TbWoziNoteMenuPO;
 @Repository("noteManagerDAO")
 public class NoteManagerDAOImpl implements NoteManagerDAO{
 	
+	private Logger logger = Logger.getLogger(NoteManagerDAOImpl.class);
 	private JdbcTemplate jdbcTemplate;
 	
 	public JdbcTemplate getJdbcTemplate() {
@@ -98,19 +103,30 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 		return true;
 	}
 	
-	public boolean deleteMenuNode(String currentMenuNodeId) throws Exception {
-		//删除当前目录
-		String dataSql = "delete from tb_wozi_note_menu where id = ?";
-		jdbcTemplate.update(dataSql, new PreparedStatementSetter(){
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, currentMenuNodeId);
-			}
-		});
-		return true;
+	public boolean deleteMenuNode(String currentMenuNodeId, String userId) throws Exception {
+		//检测目录是否是根目录  parent "#" 是则不能删除
+		TbWoziNoteMenuPO menuList = isRootMenu(currentMenuNodeId,userId).get(0);
+		if(menuList.getParent().equals("#")){
+			return false;
+		}
+		//检测该目录是否有子目录  有则不能删除
+		boolean isExistSubMenu = isExistSubMenu(currentMenuNodeId);
+		if(!isExistSubMenu) {
+			//删除当前目录
+			String dataSql = "delete from tb_wozi_note_menu where id = ?";
+			jdbcTemplate.update(dataSql, new PreparedStatementSetter(){
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setString(1, currentMenuNodeId);
+				}
+			});
+			return true;
+		}
+			return false;
+		
 	}
 	
-	public boolean deleteMenuNodeandNode(String currentMenuNodeId) throws Exception {
+	/*public boolean deleteMenuNodeandNode(String currentMenuNodeId) throws Exception {
 		//删除该目录下的子目录
 		String dataSql2 = "delete from tb_wozi_note_menu where parent = ?";
 		jdbcTemplate.update(dataSql2, new PreparedStatementSetter(){
@@ -121,5 +137,40 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 			}
 		});
 		return true;		
+	}*/
+	
+	@SuppressWarnings("all")
+	public List<TbWoziNoteMenuPO> isRootMenu(String currentMenuId, String userId) throws Exception {
+		String dataSql = "select * from tb_wozi_note_menu where id = ? and ref_user = ?";
+		List<TbWoziNoteMenuPO> menuList = new ArrayList<>();
+		return menuList = (List<TbWoziNoteMenuPO>)jdbcTemplate.query(dataSql, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, currentMenuId);
+				ps.setString(2, userId);
+			}
+		}, new RowMapperResultSetExtractor(new NoteRowMapper()));
+	}
+	
+	public boolean isExistSubMenu(String parentId) throws Exception {
+		Map<String,Integer> count = new HashMap<>();
+		count.put("count", 0);
+		String countSql = "select count(*) from tb_wozi_note_menu user where parent = ?";
+		jdbcTemplate.query(countSql, new PreparedStatementSetter(){
+
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, parentId);
+			}
+		}, new  RowCallbackHandler(){
+			@Override
+			public void processRow(ResultSet rs) throws SQLException {
+					if(!rs.wasNull()){
+						int a = rs.getInt(1);
+						count.put("count", a);
+					}
+			}
+		});
+		return count.get("count")>0;
 	}
 }

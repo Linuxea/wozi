@@ -10,6 +10,13 @@ import java.io.Serializable;
  */
 
 public class TbWoziNoteMenuPO implements Serializable{
+	private String realId;
+	public String getRealId() {
+		return realId;
+	}
+	public void setRealId(String realId) {
+		this.realId = realId;
+	}
 	private String id;
 	private String parent;//是否存在父目录？父目录id:“#”
 	private String text;//目录或者文件的名称

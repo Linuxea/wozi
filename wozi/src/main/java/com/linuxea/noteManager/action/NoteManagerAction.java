@@ -101,11 +101,11 @@ public class NoteManagerAction extends BaseAction{
 	}
 	
 	public String delMenuNode() throws Exception {
-		boolean isSuccessDel = this.noteManagerService.deleteMenuNode(currentMenuNodeId);
+		boolean isSuccessDel = this.noteManagerService.deleteMenuNode(currentMenuNodeId, "466a37d9-935b-47b3-bdea-2250fe974a57");
 		if(isSuccessDel) {
 			this.setActionResult("0", "成功删除目录");
 		}else{
-			this.setActionResult("0", "删除目录失败");
+			this.setActionResult("-1", "删除目录失败(无法删除根目录及存在子目录的目录)");
 		}
 		return this.SUCCESS;
 	}

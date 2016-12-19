@@ -48,4 +48,8 @@ CHANGE COLUMN `parent` `parent` VARCHAR(100) NULL DEFAULT '#' ;
 	ADD COLUMN `real_id` VARCHAR(36) NOT NULL AFTER `isDelete`,
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`real_id`);
+	
+删除目录新思路：
+根目录不能删除
+存在子目录的目录也不能删除，只能从最底级开始删除，以防用户删除操作失误而导致数据全部丢失
 <!-- 2016-12-19 end -->
