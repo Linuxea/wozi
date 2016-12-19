@@ -51,11 +51,27 @@ create table tb_wozi_note_menu (
 /* 2016-12-18 end */
 
 /* 2016-12-19 begin */
+	/* 创建笔记目录表 */
 	ALTER TABLE `wozi`.`tb_wozi_note_menu` 
 	CHANGE COLUMN `id` `id` VARCHAR(100) NULL ,
 	ADD COLUMN `real_id` VARCHAR(36) NOT NULL AFTER `isDelete`,
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`real_id`);
+	
+	/* 创建笔记列表表 */
+	create table tb_wozi_note(
+	id varchar(36) primary key,
+    ref_menu varchar(100) ,
+    title varchar(36),
+    content text,
+    upload_time timestamp ,
+    status varchar(2),
+    constraint foreign key (ref_menu) references tb_wozi_note_menu(real_id) ON delete cascade
+)engine=innoDB default charset=utf8
+	
+	ALTER TABLE `wozi`.`tb_wozi_note` 
+	CHANGE COLUMN `status` `status` VARCHAR(2) NULL DEFAULT 0 ;
+
 /* 2016-12-19 end */
 
 

@@ -52,4 +52,17 @@ CHANGE COLUMN `parent` `parent` VARCHAR(100) NULL DEFAULT '#' ;
 删除目录新思路：
 根目录不能删除
 存在子目录的目录也不能删除，只能从最底级开始删除，以防用户删除操作失误而导致数据全部丢失
+
+笔记列表设计：
+数据表  tb_wozi_note_
+字段  id  ref_menu title  content upload_time status 
+create table tb_wozi_note(
+	id varchar(36) primary key,
+    ref_menu varchar(100) ,
+    title varchar(36),
+    content text,
+    upload_time timestamp ,
+    status varchar(2),
+    constraint foreign key (ref_menu) references tb_wozi_note_menu(real_id) ON delete cascade
+)engine=innoDB default charset=utf8
 <!-- 2016-12-19 end -->

@@ -9,6 +9,7 @@
 	<style>
 	.container-fluid {
     background: #337ab7;
+    border-bottom: 1px dotted white;
 }
 	.navbar{
 		margin-bottom: 0px;
@@ -344,11 +345,28 @@
 				    		    "data" : function (nodes) {
 				    		        return { "ids" : nodes.join(",") };
 				    		      },
+				    		      "themes":{
+				    		    	  "stripes" : true,
+				    		      }
 				    		    },
 				    	 },
 				    	 		"checkbox" : {
 				    	      	"keep_selected_style" : false
 				    	    },
+				    	    	"contextmenu":{
+				    	    		"items":{
+				    	                "create":null,  
+				    	                "rename":null,  
+				    	                "remove":null,  
+				    	                "ccp":null,  
+				    	    			"新建菜单":{
+				    	    				"label":"新建菜单",
+				    	    				"action":function(data){
+				    	    					console.log(data);
+				    	    				}
+				    	    			},
+				    	    		}
+				    	    	},
 				    	    	"plugins" :  [
 				    	    	//"checkbox",
 				    	    	"contextmenu",//右键菜单

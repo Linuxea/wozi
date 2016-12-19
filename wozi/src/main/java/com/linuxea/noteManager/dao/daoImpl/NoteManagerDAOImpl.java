@@ -3,7 +3,9 @@ package com.linuxea.noteManager.dao.daoImpl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +22,7 @@ import org.springframework.jdbc.core.RowMapperResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import com.linuxea.noteManager.dao.NoteManagerDAO;
+import com.linuxea.noteManager.po.TbWoZiNotePO;
 import com.linuxea.noteManager.po.TbWoziNoteMenuPO;
 
 /*
@@ -172,5 +175,50 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 			}
 		});
 		return count.get("count")>0;
+	}
+	
+	@SuppressWarnings("all")
+	@Override
+	public List<TbWoZiNotePO> listNoteByMenuId(String menuId) throws Exception {
+		List<TbWoZiNotePO> notelist = new ArrayList<>(); 
+		String dataSql = "select * from tb_wozi_note where ref_menu = ?";
+		notelist = (List<TbWoZiNotePO>)jdbcTemplate.query(dataSql, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, menuId);
+			}
+		}, new RowMapperResultSetExtractor(new NoteListRowMapper()));
+		return notelist;
+	}
+	class NoteListRowMapper  implements RowMapper {
+		TbWoZiNotePO note = new TbWoZiNotePO();
+		@Override
+		public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+			note.setId(rs.getString("id"));
+			note.setContent(rs.getString("content"));
+			note.setRefMenu(rs.getString("ref_menu"));
+			note.setStatus(rs.getString("status"));
+			note.setTitle(rs.getString("title"));
+			note.setUploadTime(rs.getTimestamp("upload_time"));
+			return note;
+		}
+		
+	}
+
+	@Override
+	public boolean ajaxAddNote(TbWoZiNotePO tbWoZiNotePo) throws Exception {
+		String dataSql = "insert into tb_wozi_note (id,ref_menu,title,content,upload_time) "
+				+ " values(?,?,?,?,?)";
+		jdbcTemplate.update(dataSql, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, UUID.randomUUID().toString());
+				ps.setString(2, tbWoZiNotePo.getRefMenu());
+				ps.setString(3, tbWoZiNotePo.getTitle());
+				ps.setString(4, tbWoZiNotePo.getContent());
+				ps.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
+			}
+		});
+		return true;
 	}
 }
