@@ -39,8 +39,8 @@ public class NoteManagerServiceImpl implements NoteManagerService {
 		return this.noteManagerDAO.createMenuNode(directMenuParentId,newNodeId, userId);
 	}
 	@Override
-	public boolean reNameMenuNode(String currentMenuNodeId, String newTextName) throws Exception {
-		return this.noteManagerDAO.reNameMenuNode(currentMenuNodeId, newTextName);
+	public boolean reNameMenuNode(String currentMenuNodeId, String newTextName, String refUserId) throws Exception {
+		return this.noteManagerDAO.reNameMenuNode(currentMenuNodeId, newTextName, refUserId);
 	}
 	@Override
 	public boolean deleteMenuNode(String curentMenuId) throws Exception {

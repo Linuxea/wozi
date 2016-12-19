@@ -41,5 +41,11 @@ CHANGE COLUMN `id` `id` VARCHAR(100) NOT NULL ;
 ALTER TABLE `wozi`.`tb_wozi_note_menu` 
 CHANGE COLUMN `parent` `parent` VARCHAR(100) NULL DEFAULT '#' ;
 
-
+因为jstree在创建节点指定id的api不明确，从百度，必应,stackoveflow也找不到对应的解决方案
+所以采用一种折衷的方式，就是使用jstree自增长的id为目录的id,同时为了防止生成id在多个用户前冲突，所以需要一个真正的id.
+	ALTER TABLE `wozi`.`tb_wozi_note_menu` 
+	CHANGE COLUMN `id` `id` VARCHAR(100) NULL ,
+	ADD COLUMN `real_id` VARCHAR(36) NOT NULL AFTER `isDelete`,
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`real_id`);
 <!-- 2016-12-19 end -->

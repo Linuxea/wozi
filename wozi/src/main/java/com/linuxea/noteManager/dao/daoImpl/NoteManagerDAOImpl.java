@@ -67,8 +67,8 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 
 	@Override
 	public boolean createMenuNode(String directMenuParentId,String newNodeId, String userId) throws Exception {
-		String dataSql = "insert into tb_wozi_note_menu (id,parent,text,flag,ref_user,isDelete) "
-				+ "values (?,?,?,?,?,?);";
+		String dataSql = "insert into tb_wozi_note_menu (id,parent,text,flag,ref_user,isDelete,real_id) "
+				+ "values (?,?,?,?,?,?,?);";
 		jdbcTemplate.update(dataSql, new PreparedStatementSetter(){
 
 			@Override
@@ -79,18 +79,20 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 				ps.setString(4, "0");
 				ps.setString(5, userId);
 				ps.setString(6, "0");
+				ps.setString(7, UUID.randomUUID().toString());
 			}
 		});
 		return true;
 	}
 	@Override
-	public boolean reNameMenuNode(String currentMenuNodeId, String newTextName) throws Exception {
-		String dataSql = "update tb_wozi_note_menu set text = ? where id=?";
+	public boolean reNameMenuNode(String currentMenuNodeId, String newTextName, String refUserId) throws Exception {
+		String dataSql = "update tb_wozi_note_menu set text = ? where id=? and ref_user=?";
 		jdbcTemplate.update(dataSql, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, newTextName);
 				ps.setString(2, currentMenuNodeId );
+				ps.setString(3,refUserId);
 			}
 		});
 		return true;

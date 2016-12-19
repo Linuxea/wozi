@@ -351,8 +351,8 @@
 				    	var id = randomId();
 						console.log("createa node successfully!");
 						console.log(e);//e 的 parent 表示新创建的目录的父目录!
-						createMenuNode(e.parent, id);//e.node.id为自动生成的id
-						currentMenuId = id;
+						createMenuNode(e.parent, e.node.id);//e.node.id为自动生成的id
+						currentMenuId = e.node.id;
 					})
 					.bind("rename_node.jstree", function(data, e){//修改节点名称
 						console.log("rename..");

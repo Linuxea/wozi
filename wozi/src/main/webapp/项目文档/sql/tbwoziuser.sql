@@ -50,7 +50,13 @@ create table tb_wozi_note_menu (
 
 /* 2016-12-18 end */
 
-
+/* 2016-12-19 begin */
+	ALTER TABLE `wozi`.`tb_wozi_note_menu` 
+	CHANGE COLUMN `id` `id` VARCHAR(100) NULL ,
+	ADD COLUMN `real_id` VARCHAR(36) NOT NULL AFTER `isDelete`,
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`real_id`);
+/* 2016-12-19 end */
 
 
 

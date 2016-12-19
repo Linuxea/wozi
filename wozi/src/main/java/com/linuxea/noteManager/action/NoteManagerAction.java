@@ -89,8 +89,9 @@ public class NoteManagerAction extends BaseAction{
 	}
 	
 	public String reNameMenuNode() throws Exception{
+		TbWoZiUser tbWoZiUser = (TbWoZiUser) super.getSession().get("user");
 		boolean isSuccess = false;
-		isSuccess = this.noteManagerService.reNameMenuNode(currentMenuNodeId, newTextName);
+		isSuccess = this.noteManagerService.reNameMenuNode(currentMenuNodeId, newTextName, "466a37d9-935b-47b3-bdea-2250fe974a57");//tbWoZiUser.getRealId()
 		if(isSuccess) {
 			this.setActionResult("0", "更改节点名称成功");
 		}else{
