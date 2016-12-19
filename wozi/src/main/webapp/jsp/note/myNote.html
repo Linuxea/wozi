@@ -269,11 +269,14 @@
 	
 	//修改节点名称
 	function reNameMenuNode(currentMenuId, newTextName) {
+		if(Array.isArray(currentMenuId)){
+			currentMenuId = currentMenuId[0];
+		}
 		$.ajax({
 			url:"http://localhost:8080/wozi/note/noteManager_reNameMenuNode",
 			dataType:"json",
 			data:{
-				"currentMenuNodeId":currentMenuId,
+				"currentMenuNodeId":currentMenuId,//currentMenuNodeId
 				"newTextName":newTextName,
 			},
 			success:function(rs) {
@@ -343,8 +346,7 @@
 				    	    	"conditionalselect",
 				    	    ]
 				    })
-				    .bind("create_node.jstree", function(data, e,str,call){//创建新目录节点
-				    	debugger;
+				    .bind("create_node.jstree", function(data, e){//创建新目录节点
 				    	e.node.text = "newNode";//新创建节点的默认名称
 				    	var id = randomId();
 						console.log("createa node successfully!");
@@ -357,14 +359,15 @@
 						console.log("当前选中的是"+currentMenuId);
 						console.log(e);//e.old oldname  e.text  newName
 						reNameMenuNode(currentMenuId, e.text);
+						//document.location.reload();//当前页面 解决一个问题的暂时方法 2016-12-19
 					})
 					.bind("delete_node.jstree", function(data, e){//delete_node
 						console.log(e);//e.node.id  存放着欲删除的目录id
 						delMenu(e.node.id);
 					})
-					.bind("changed.jstree", function (e, data) {
-				        console.log(data.changed.selected); // 左键右键点击目录的id
-				        currentMenuId = data.changed.selected;//保存当前选中的目录id
+					.bind("select_node.jstree", function (e, data) {
+				       // console.log(data.changed.selected); // 左键右键点击目录的id
+				        currentMenuId = data.node.id;//保存当前选中的目录id
 				        //console.log(data.changed.deselected); // 跳出某个目录的id
 				    });
 			}
