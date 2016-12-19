@@ -119,9 +119,24 @@
     }
     /* 目录面板 为了y轴上可滑动 */
     .panel-menu{
-    	padding: 0;
+    	padding: 4px;
     	height: 486px;
     	overflow-y:scroll;
+    }
+    #menu_list {
+    	padding: 4px;
+    	height: 486px;
+    	overflow-y:scroll;
+    }
+    #menu_list>div{
+   		width: 100%;
+    	height: 81px;
+    	border-bottom: 1px solid #f0f0f0;
+    	padding-top: 27px;
+    	padding-left:18px;
+    }
+    #menu_list>div>i>span{
+    	color:#337ab7;
     }
 	</style>
 </head>
@@ -185,8 +200,9 @@
 			<h3 class="panel-title">笔记列表</h3>
 		</div>
 		<div class="panel-body">
-			<div id="">
+			<div id="menu_list">
 			<!-- 笔记目录列表栏 -->
+			<div><i><span class="glyphicon glyphicon-list-alt">&nbsp;</span></i><span>标题</span><span style="display:block;color:#8c8c8c;margin-top: 4px;font-size: 12px;line-height: 1.35;">时间标签</span></div>
 			</div>
 		</div>
 	</div>
