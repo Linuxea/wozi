@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<base href="http://localhost:8080/wozi/">
-    <title>Bootstrap 实例 - 组件对齐方式</title>
+    <title>我知</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 	<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
 	<style>
@@ -139,6 +139,13 @@
     #menu_list>div>i>span{
     	color:#337ab7;
     }
+    .note-create{
+    	    padding: 0px 10px;
+		    font-size: 10px;
+		    line-height: 1.5;
+		    border-radius: 3px;
+		    margin-left: 43px;
+    }
 	</style>
 </head>
 <body>
@@ -186,7 +193,7 @@
 <!-- 侧边栏开始 -->
 	<div class="panel panel-primary note-menu">
 		<div class="panel-heading">
-			<h3 class="panel-title">笔记目录</h3>
+				<h3 class="panel-title"><span>笔记目录</span><span><button type="button" class="btn note-create btn-info">创建笔记</button></span></h3>
 		</div>
 		<div class="panel-body panel-menu">
 			<div id="jstree">
@@ -230,6 +237,12 @@
 	$("a.navbar-brand").hover(function(){
 		//覆盖掉移动到该文字上面的默认样式
 		$(this).css("color","#fff");
+	});
+	
+	$("#menu_list>div").hover(function(){
+		$(this).css("background","lightblue");
+	},function(){
+		$(this).css("background","white");
 	});
 	
 	$(function () {
@@ -329,6 +342,15 @@
 		});
 	}
 	
+	//创建笔记
+	$(document).on("click",".note-create", function(){
+		if(typeof currentMenuId ==="undefined"){
+			alert("请选择目录");
+		}else {
+			alert("创建笔记成功" + currentMenuId);
+		}
+	});
+	
 	function getMenu() {
 		$.ajax({
 			url:"http://localhost:8080/wozi/note/noteManager_handleNoteMenu",
@@ -353,20 +375,6 @@
 				    	 		"checkbox" : {
 				    	      	"keep_selected_style" : false
 				    	    },
-				    	    	"contextmenu":{
-				    	    		"items":{
-				    	                "create":null,  
-				    	                "rename":null,  
-				    	                "remove":null,  
-				    	                "ccp":null,  
-				    	    			"新建菜单":{
-				    	    				"label":"新建菜单",
-				    	    				"action":function(data){
-				    	    					console.log(data);
-				    	    				}
-				    	    			},
-				    	    		}
-				    	    	},
 				    	    	"plugins" :  [
 				    	    	//"checkbox",
 				    	    	"contextmenu",//右键菜单
@@ -375,12 +383,12 @@
 				    	    	//"search",
 				    	    	//"sort",
 				    	    	"state",//节点展开状态
-				    	    	//"types",
+				    	    	"types",
 				    	    	//"unique",
 				    	    	"wholerow", //全行
 				    	    	"changed",
 				    	    	"conditionalselect",
-				    	    ]
+				    	    ],
 				    })
 				    .bind("create_node.jstree", function(data, e){//创建新目录节点
 				    	e.node.text = "newNode";//新创建节点的默认名称
@@ -400,6 +408,7 @@
 					.bind("delete_node.jstree", function(data, e){//delete_node
 						console.log(e);//e.node.id  存放着欲删除的目录id
 						delMenu(e.node.id);
+						currentMenuId = undefined;
 					})
 					.bind("select_node.jstree", function (e, data) {
 				       // console.log(data.changed.selected); // 左键右键点击目录的id
@@ -409,6 +418,7 @@
 			}
 		});
 	}
+	
 </script>
 </body>
 </html>
