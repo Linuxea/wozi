@@ -66,3 +66,12 @@ create table tb_wozi_note(
     constraint foreign key (ref_menu) references tb_wozi_note_menu(real_id) ON delete cascade
 )engine=innoDB default charset=utf8
 <!-- 2016-12-19 end -->
+
+<!-- 2016-12-20 begin  -->
+创建笔记
+
+<!-- 2016-12-20 end  -->
+
+
+
+

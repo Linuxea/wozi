@@ -140,11 +140,12 @@
     	color:#337ab7;
     }
     .note-create{
-    	    padding: 0px 10px;
-		    font-size: 10px;
+    	    padding: 0px 0px 0px 0;
+		    font-size: 9px;
 		    line-height: 1.5;
 		    border-radius: 3px;
-		    margin-left: 43px;
+		    /* margin-left: 43px; */
+		    margin-left: 146px;
     }
 	</style>
 </head>
@@ -152,7 +153,7 @@
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid"> 
     <div class="navbar-header">
-        <a class="navbar-brand"><span class="glyphicon glyphicon-book" style="color:#fff;">&nbsp;</span><strong>我的笔记</strong></a>
+        <a class="navbar-brand"><span class="glyphicon glyphicon-book" style="color:#fff;">&nbsp;</span><strong>我知笔记</strong></a>
     </div>
         <!--向左对齐-->
        <!--  <ul class="nav navbar-nav navbar-left">
@@ -193,7 +194,7 @@
 <!-- 侧边栏开始 -->
 	<div class="panel panel-primary note-menu">
 		<div class="panel-heading">
-				<h3 class="panel-title"><span>笔记目录</span><span><button type="button" class="btn note-create btn-info">创建笔记</button></span></h3>
+				<h3 class="panel-title"><span>笔记目录</span></h3>
 		</div>
 		<div class="panel-body panel-menu">
 			<div id="jstree">
@@ -205,7 +206,7 @@
 <!-- 笔记列表开始-->
 	<div class="panel panel-primary note-list">
 		<div class="panel-heading">
-			<h3 class="panel-title">笔记列表</h3>
+			<h3 class="panel-title"><span>笔记列表</span><span><button type="button" class="btn note-create btn-info">NEW !</button></span></h3>
 		</div>
 		<div class="panel-body">
 			<div id="menu_list">
@@ -249,27 +250,9 @@
 		var params = window.location.search;
 		var paramObj = handleSearchParams(params);
 		$("button.user-btn").text(paramObj.name);
-		var currentMenuId;
+		var currentMenuId;//声明一个全局变量来保存每个操作当前目录的Id
 		//取得用户目录json格式数据
 		getMenu();
-		var ue = UE.getEditor('editor',{
-			"initialFrameHeight":380, //初始化高度
-			"initialContent":"",
-			"autoHeightEnabled":false,//关闭自动增高
-			"toolbars":[[ //按需要加载
-	            'fullscreen', 'source', '|', 'undo', 'redo', '|',
-	            'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
-	            'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
-	            'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
-	            'directionalityltr', 'directionalityrtl', 'indent', '|',
-	            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
-	            'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-	            'simpleupload', 'insertimage', 'emotion', 'scrawl', '', '', 'attachment', 'map', '', '', 'insertcode', '', 'pagebreak', 'template', 'background', '|',
-	            'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
-	            'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
-	            'print', 'preview', 'searchreplace', 'drafts', 'help'
-	        ]],
-		});//初始化编辑器
 	  });
 	
 	//点击用户名称跳转到用户信息详情页面
@@ -348,6 +331,7 @@
 			alert("请选择目录");
 		}else {
 			alert("创建笔记成功" + currentMenuId);
+			initUE();
 		}
 	});
 	
@@ -419,6 +403,26 @@
 		});
 	}
 	
+	function initUE() {
+		UE.getEditor('editor',{
+			"initialFrameHeight":380, //初始化高度
+			"initialContent":"",
+			"autoHeightEnabled":false,//关闭自动增高
+			"toolbars":[[ //按需要加载
+	            'fullscreen', 'source', '|', 'undo', 'redo', '|',
+	            'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+	            'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+	            'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+	            'directionalityltr', 'directionalityrtl', 'indent', '|',
+	            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+	            'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+	            'simpleupload', 'insertimage', 'emotion', 'scrawl', '', '', 'attachment', 'map', '', '', 'insertcode', '', 'pagebreak', 'template', 'background', '|',
+	            'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
+	            'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+	            'print', 'preview', 'searchreplace', 'drafts', 'help'
+	        ]],
+		});//初始化编辑器
+	}
 </script>
 </body>
 </html>
