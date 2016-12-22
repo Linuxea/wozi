@@ -11,10 +11,12 @@ import com.linuxea.userManager.vo.TbWoZiUser;
 
 public interface UserManagerService {
 
-	void userRegist(TbWoZiUser tbWoZiUser) throws Exception;
+	String userRegist(TbWoZiUser tbWoZiUser) throws Exception;
 
 	boolean ajaxLogin(TbWoZiUser tbWoZiUser) throws Exception;
 
 	boolean isUserExist(TbWoZiUser tbWoZiUser) throws Exception;
+	
+	public String getUserIdByName(String name) throws Exception;
 
 }

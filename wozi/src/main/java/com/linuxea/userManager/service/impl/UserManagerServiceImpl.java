@@ -31,8 +31,11 @@ public class UserManagerServiceImpl implements UserManagerService {
 		this.userManagerDAO = userManagerDAO;
 	}
 	@Override
-	public void userRegist(TbWoZiUser tbWoZiUser) throws Exception {
-		this.userManagerDAO.userRegist(tbWoZiUser);
+	public String userRegist(TbWoZiUser tbWoZiUser) throws Exception {
+		String id = this.userManagerDAO.userRegist(tbWoZiUser);
+		this.userManagerDAO.insertRootMenuForNewUser(id);
+		return id;
+		
 	}
 	@Override
 	public boolean ajaxLogin(TbWoZiUser tbWoZiUser) throws Exception {
@@ -41,6 +44,10 @@ public class UserManagerServiceImpl implements UserManagerService {
 	@Override
 	public boolean isUserExist(TbWoZiUser tbWoZiUser) throws Exception {
 		return this.userManagerDAO.isUserExist(tbWoZiUser);
+	}
+	@Override
+	public String getUserIdByName(String name) throws Exception {
+		return this.userManagerDAO.getUserIdByName(name);
 	}
 	
 }

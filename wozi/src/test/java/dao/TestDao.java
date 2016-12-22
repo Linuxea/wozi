@@ -5,7 +5,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.sql.DataSource;
@@ -69,6 +73,38 @@ public class TestDao {
 		while(rs.next()){
 			System.out.println(rs.getString(2));
 		}
+	}
+	
+	@org.junit.Test
+	public void test() {
+		int i = 3;
+		int j = (i++ ==i--)?i++:i--;
+		System.out.println(j);
+		System.out.println("hello");
+	}
+	
+	@SuppressWarnings("all")
+	@org.junit.Test
+	public void test43() {
+		Map<String,String> myMap = new HashMap<>();
+		myMap.put("test", "test");
+		Set<String> sets = myMap.keySet();
+		for(String temp:sets) {
+			System.out.println(myMap.get(temp));
+		}
+		
+		Set<Entry<String, String>> tt = myMap.entrySet();
+		Iterator iter =  tt.iterator();
+		while(iter.hasNext()){
+			System.out.println(iter.next());
+		}
+		
+	}
+	
+	@org.junit.Test
+	public void test55() {
+		String s = "a\0bc";
+		System.out.println(s);
 	}
 	
 	

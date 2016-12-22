@@ -56,7 +56,8 @@ public class UserManagerAction extends BaseAction {
 		}else if(!tbWoZiUser.getPassword().equals(confirmPassword)){
 			this.setActionResult("-1", "密码不一致");
 		}else{
-			this.userManagerService.userRegist(tbWoZiUser);
+			String id = this.userManagerService.userRegist(tbWoZiUser);
+			tbWoZiUser.setId(id);//将id也保存在session中
 			super.getSession().put("user", tbWoZiUser);//存放用户信息
 			this.setActionResult("0", "新增用户"+tbWoZiUser.getUserName()+"成功");
 		}
@@ -64,6 +65,8 @@ public class UserManagerAction extends BaseAction {
 	}
 	
 	public String ajaxLogin() throws Exception {
+		String userId = this.userManagerService.getUserIdByName(tbWoZiUser.getUserName());
+		tbWoZiUser.setId(userId);
 		boolean isUserExist = this.userManagerService.ajaxLogin(tbWoZiUser);
 		if(isUserExist){
 			super.getSession().put("user", tbWoZiUser);//存放用户信息

@@ -70,7 +70,8 @@ public class NoteManagerAction extends BaseAction{
 	}
 	
 	public String handleNoteMenu() throws Exception{
-		List<TbWoziNoteMenuPO> menuListJSON = this.noteManagerService.handleMenuInfo("466a37d9-935b-47b3-bdea-2250fe974a57");
+		TbWoZiUser tbWoZiUser = (TbWoZiUser) super.getSession().get("user");
+		List<TbWoziNoteMenuPO> menuListJSON = this.noteManagerService.handleMenuInfo(tbWoZiUser.getId());
 		if(null!=menuListJSON && menuListJSON.size()>0){
 			this.setActionResult("0", "查询用户目录信息成功", menuListJSON);
 		}else{
@@ -82,7 +83,7 @@ public class NoteManagerAction extends BaseAction{
 	
 	public String ajaxAddMenuNode() throws Exception {
 		TbWoZiUser tbWoZiUser = (TbWoZiUser) super.getSession().get("user");
-		if(this.noteManagerService.createMenuNode(directMenuParentId,newNodeId, "466a37d9-935b-47b3-bdea-2250fe974a57")){
+		if(this.noteManagerService.createMenuNode(directMenuParentId,newNodeId, tbWoZiUser.getId())){//"466a37d9-935b-47b3-bdea-2250fe974a57"
 			this.setActionResult("0", "创建新节点成功");
 		}
 		return this.SUCCESS;
@@ -91,7 +92,7 @@ public class NoteManagerAction extends BaseAction{
 	public String reNameMenuNode() throws Exception{
 		TbWoZiUser tbWoZiUser = (TbWoZiUser) super.getSession().get("user");
 		boolean isSuccess = false;
-		isSuccess = this.noteManagerService.reNameMenuNode(currentMenuNodeId, newTextName, "466a37d9-935b-47b3-bdea-2250fe974a57");//tbWoZiUser.getRealId()
+		isSuccess = this.noteManagerService.reNameMenuNode(currentMenuNodeId, newTextName, tbWoZiUser.getId());//tbWoZiUser.getRealId()
 		if(isSuccess) {
 			this.setActionResult("0", "更改节点名称成功");
 		}else{
@@ -101,7 +102,8 @@ public class NoteManagerAction extends BaseAction{
 	}
 	
 	public String delMenuNode() throws Exception {
-		boolean isSuccessDel = this.noteManagerService.deleteMenuNode(currentMenuNodeId, "466a37d9-935b-47b3-bdea-2250fe974a57");
+		TbWoZiUser tbWoZiUser = (TbWoZiUser) super.getSession().get("user");
+		boolean isSuccessDel = this.noteManagerService.deleteMenuNode(currentMenuNodeId, tbWoZiUser.getId());
 		if(isSuccessDel) {
 			this.setActionResult("0", "成功删除目录");
 		}else{

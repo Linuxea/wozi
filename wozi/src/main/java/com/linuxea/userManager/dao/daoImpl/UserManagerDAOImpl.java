@@ -42,14 +42,15 @@ public class UserManagerDAOImpl implements UserManagerDAO {
 
 	@SuppressWarnings("all")
 	@Override
-	public void userRegist(TbWoZiUser tbWoZiUser) throws Exception {
+	public String userRegist(TbWoZiUser tbWoZiUser) throws Exception {
 		String dataSql = "insert into tbwoziuser (id,username,email,password,registdate) "
 				+ "  values (?,?,?,?,?)";
+		String id = UUID.randomUUID().toString();//做为返回值
 		jdbcTemplate.update(dataSql, new PreparedStatementSetter(){
 
 			@Override
 			public void setValues(PreparedStatement pstmt) throws SQLException {
-				pstmt.setString(1, UUID.randomUUID().toString());
+				pstmt.setString(1,id );
 				pstmt.setString(2, tbWoZiUser.getUserName());
 				pstmt.setString(3, tbWoZiUser.getEmail());
 				pstmt.setString(4, tbWoZiUser.getPassword());
@@ -57,6 +58,7 @@ public class UserManagerDAOImpl implements UserManagerDAO {
 			}
 			
 		});
+		return id;
 	}
 	@Override
 	public boolean ajaxLogin(TbWoZiUser tbWoZiUser) throws Exception {
@@ -102,5 +104,45 @@ public class UserManagerDAOImpl implements UserManagerDAO {
 			}
 		});
 		return count.get("count")>0;
+	}
+	
+	public String getUserIdByName(String name) throws Exception{
+		String dataSql = "select id from tbwoziuser user where user.username = ?";
+		Map<String,String> userIdMap = new HashMap<>();
+		userIdMap.put("id", "");
+		jdbcTemplate.query(dataSql, new PreparedStatementSetter(){
+
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, name);
+			}
+			
+		}, new  RowCallbackHandler(){
+			@Override
+			public void processRow(ResultSet rs) throws SQLException {
+				if(!rs.wasNull()){
+					userIdMap.put("id", rs.getString(1));
+				}
+			}
+			
+		});
+		return userIdMap.get("id");
+	}
+	@Override
+	public void insertRootMenuForNewUser(String userId) throws Exception {
+		String dataSql = "insert into tb_wozi_note_menu(real_id,id,parent,text,flag,ref_user,isDelete) "
+				+ " values(?,?,?,?,?,?,?);";
+		jdbcTemplate.update(dataSql, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, UUID.randomUUID().toString());
+				ps.setString(2, "j1_0");
+				ps.setString(3, "#");
+				ps.setString(4, "root");
+				ps.setString(5, "0");
+				ps.setString(6, userId);
+				ps.setString(7, "0");
+			}
+		});
 	}
 }
