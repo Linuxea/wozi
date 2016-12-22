@@ -8,6 +8,8 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.linuxea.linuxea.action.BaseAction;
 import com.linuxea.noteManager.po.TbWoZiNotePO;
 import com.linuxea.noteManager.po.TbWoziNoteMenuPO;
@@ -24,6 +26,24 @@ import com.linuxea.userManager.vo.TbWoZiUser;
 @Controller("noteManagerAction")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class NoteManagerAction extends BaseAction{
+	private TbWoZiNotePO tbWoZiNotePO;
+	private String tbWoZiNotePOStr;
+	public String getTbWoZiNotePOStr() {
+		return tbWoZiNotePOStr;
+	}
+
+	public void setTbWoZiNotePOStr(String tbWoZiNotePOStr) {
+		this.tbWoZiNotePOStr = tbWoZiNotePOStr;
+	}
+
+	public TbWoZiNotePO getTbWoZiNotePO() {
+		return tbWoZiNotePO;
+	}
+
+	public void setTbWoZiNotePO(TbWoZiNotePO tbWoZiNotePO) {
+		this.tbWoZiNotePO = tbWoZiNotePO;
+	}
+
 	private String newNodeId;
 	
 	public String getNewNodeId() {
@@ -119,6 +139,15 @@ public class NoteManagerAction extends BaseAction{
 		List<TbWoZiNotePO> noteList = this.noteManagerService.noteList(currentMenuNodeId,tbWoZiUser.getId());
 		this.setActionResult("0", "获取该目录下笔记列表成功",noteList);
 		return this.SUCCESS;
-		
+	}
+	
+	public String ajaxAddNote() throws Exception{
+		TbWoZiUser tbWoZiUser = (TbWoZiUser) super.getSession().get("user");
+		JSONObject jo = JSON.parseObject(tbWoZiNotePOStr);
+		tbWoZiNotePO = JSON.toJavaObject(jo, TbWoZiNotePO.class);
+		tbWoZiNotePO.setRefUser(tbWoZiUser.getId());
+		this.noteManagerService.ajaxAddNote(tbWoZiNotePO);
+		this.setActionResult("0", "创建新笔记成功");		
+		return this.SUCCESS;
 	}
 }

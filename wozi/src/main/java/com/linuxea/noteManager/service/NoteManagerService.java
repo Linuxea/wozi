@@ -35,4 +35,9 @@ public interface NoteManagerService {
 	 */
 	public List<TbWoZiNotePO> noteList(String directMenuId,  String userId) throws Exception;
 	
+	/*
+	 * 创建笔记
+	 */
+	public boolean ajaxAddNote(TbWoZiNotePO tbWoZiNotePo) throws Exception;
+	
 }

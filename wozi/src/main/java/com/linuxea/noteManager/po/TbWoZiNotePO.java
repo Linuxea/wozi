@@ -16,6 +16,13 @@ public class TbWoZiNotePO {
 	private String content;
 	private Date uploadTime;
 	private String status;
+	private String refUser;
+	public String getRefUser() {
+		return refUser;
+	}
+	public void setRefUser(String refUser) {
+		this.refUser = refUser;
+	}
 	public String getId() {
 		return id;
 	}

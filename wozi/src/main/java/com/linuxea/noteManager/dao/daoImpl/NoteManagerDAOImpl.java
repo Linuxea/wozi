@@ -196,8 +196,8 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 
 	@Override
 	public boolean ajaxAddNote(TbWoZiNotePO tbWoZiNotePo) throws Exception {
-		String dataSql = "insert into tb_wozi_note (id,ref_menu,title,content,upload_time) "
-				+ " values(?,?,?,?,?)";
+		String dataSql = "insert into tb_wozi_note (id,ref_menu,title,content,upload_time,ref_user) "
+				+ " values(?,?,?,?,?,?)";
 		jdbcTemplate.update(dataSql, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
@@ -206,6 +206,7 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 				ps.setString(3, tbWoZiNotePo.getTitle());
 				ps.setString(4, tbWoZiNotePo.getContent());
 				ps.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
+				ps.setString(6, tbWoZiNotePo.getRefUser());
 			}
 		});
 		return true;

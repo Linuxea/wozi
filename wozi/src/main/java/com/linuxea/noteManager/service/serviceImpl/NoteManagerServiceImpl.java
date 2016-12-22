@@ -53,5 +53,9 @@ public class NoteManagerServiceImpl implements NoteManagerService {
 	public List<TbWoZiNotePO> noteList(String directMenuId,  String userId) throws Exception {
 		return this.noteManagerDAO.noteList(directMenuId,userId);
 	}
+	@Override
+	public boolean ajaxAddNote(TbWoZiNotePO tbWoZiNotePo) throws Exception {
+		return this.noteManagerDAO.ajaxAddNote(tbWoZiNotePo);
+	}
 	
 }
