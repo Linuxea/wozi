@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 
 import com.linuxea.noteManager.dao.NoteManagerDAO;
+import com.linuxea.noteManager.po.TbWoZiNotePO;
 import com.linuxea.noteManager.po.TbWoziNoteMenuPO;
 import com.linuxea.noteManager.service.NoteManagerService;
 
@@ -47,6 +48,10 @@ public class NoteManagerServiceImpl implements NoteManagerService {
 		boolean isSuccessDelNode = false;
 		isSuccessDelNode = this.noteManagerDAO.deleteMenuNode(curentMenuId ,userId);
 		return isSuccessDelNode;
+	}
+	@Override
+	public List<TbWoZiNotePO> noteList(String directMenuId,  String userId) throws Exception {
+		return this.noteManagerDAO.noteList(directMenuId,userId);
 	}
 	
 }

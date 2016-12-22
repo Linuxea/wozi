@@ -14,6 +14,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.aspectj.lang.annotation.SuppressAjWarnings;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowCallbackHandler;
@@ -64,6 +65,7 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 
 		public Object mapRow(ResultSet rs,int index) throws SQLException{
 			TbWoziNoteMenuPO menu = new TbWoziNoteMenuPO();
+			menu.setRealId(rs.getString("real_id"));
 			menu.setId(rs.getString("ID"));
 			menu.setFlag(rs.getString("flag"));
 			menu.setParent(rs.getString("parent"));
@@ -177,23 +179,10 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 		return count.get("count")>0;
 	}
 	
-	@SuppressWarnings("all")
-	@Override
-	public List<TbWoZiNotePO> listNoteByMenuId(String menuId) throws Exception {
-		List<TbWoZiNotePO> notelist = new ArrayList<>(); 
-		String dataSql = "select * from tb_wozi_note where ref_menu = ?";
-		notelist = (List<TbWoZiNotePO>)jdbcTemplate.query(dataSql, new PreparedStatementSetter(){
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, menuId);
-			}
-		}, new RowMapperResultSetExtractor(new NoteListRowMapper()));
-		return notelist;
-	}
 	class NoteListRowMapper  implements RowMapper {
-		TbWoZiNotePO note = new TbWoZiNotePO();
 		@Override
 		public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+			TbWoZiNotePO note = new TbWoZiNotePO();
 			note.setId(rs.getString("id"));
 			note.setContent(rs.getString("content"));
 			note.setRefMenu(rs.getString("ref_menu"));
@@ -220,5 +209,19 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 			}
 		});
 		return true;
+	}
+	@SuppressWarnings("all")
+	@Override
+	public List<TbWoZiNotePO> noteList(String directMenuId,  String userId) throws Exception {
+		List<TbWoZiNotePO> noteList = new ArrayList<>();
+		String dataSql = "select * from tb_wozi_note where ref_menu = ? and ref_user=? order by upload_time desc";
+		noteList = jdbcTemplate.query(dataSql, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, directMenuId);
+				ps.setString(2, userId);
+			}
+		}, new NoteListRowMapper());
+		return noteList;
 	}
 }

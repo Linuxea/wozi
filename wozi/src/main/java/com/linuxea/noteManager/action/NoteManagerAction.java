@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.linuxea.linuxea.action.BaseAction;
+import com.linuxea.noteManager.po.TbWoZiNotePO;
 import com.linuxea.noteManager.po.TbWoziNoteMenuPO;
 import com.linuxea.noteManager.service.NoteManagerService;
 import com.linuxea.userManager.vo.TbWoZiUser;
@@ -19,6 +20,7 @@ import com.linuxea.userManager.vo.TbWoZiUser;
  *@version 1.0
  *@desc 
  */
+@SuppressWarnings("all")
 @Controller("noteManagerAction")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class NoteManagerAction extends BaseAction{
@@ -110,5 +112,13 @@ public class NoteManagerAction extends BaseAction{
 			this.setActionResult("-1", "删除目录失败(无法删除根目录及存在子目录的目录)");
 		}
 		return this.SUCCESS;
+	}
+	
+	public String listNoteByDirectMenuId() throws Exception {
+		TbWoZiUser tbWoZiUser = (TbWoZiUser) super.getSession().get("user");
+		List<TbWoZiNotePO> noteList = this.noteManagerService.noteList(currentMenuNodeId,tbWoZiUser.getId());
+		this.setActionResult("0", "获取该目录下笔记列表成功",noteList);
+		return this.SUCCESS;
+		
 	}
 }

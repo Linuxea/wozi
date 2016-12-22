@@ -35,13 +35,14 @@ public interface NoteManagerDAO {
 	 */
 	public boolean deleteMenuNode(String currentMenuNodeId, String userId) throws Exception ;
 	
-	/*
-	 * 根据目录id来取得目录下的笔记列表
-	 */
-	public List<TbWoZiNotePO> listNoteByMenuId(String menuId) throws Exception ;
 	
 	/*
 	 * 创建笔记
 	 */
 	public boolean ajaxAddNote(TbWoZiNotePO tbWoZiNotePo) throws Exception;
+	
+	/*
+	 * 通过目录Id来获取其下的笔记列表
+	 */
+	public List<TbWoZiNotePO> noteList(String directMenuId, String userId) throws Exception;
 }

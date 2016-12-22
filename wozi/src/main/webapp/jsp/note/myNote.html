@@ -215,7 +215,6 @@
 		<div class="panel-body">
 			<div id="menu_list">
 			<!-- 笔记目录列表栏 -->
-			<div><i><span class="glyphicon glyphicon-list-alt">&nbsp;</span></i><span>标题</span><span style="display:block;color:#8c8c8c;margin-top: 4px;font-size: 12px;line-height: 1.35;">时间标签</span></div>
 			</div>
 		</div>
 	</div>
@@ -244,11 +243,13 @@
 		$(this).css("color","#fff");
 	});
 	
-	$("#menu_list>div").hover(function(){
-		$(this).css("background","lightblue");
-	},function(){
-		$(this).css("background","white");
-	});
+	function addNoteHover() {
+		$("#menu_list>div").hover(function(){
+			$(this).css("background","lightblue");
+		},function(){
+			$(this).css("background","white");
+		});
+	}
 	
 	$(function () {
 		var params = window.location.search;
@@ -263,6 +264,33 @@
 	$(document).on("click","button.user-btn", function(){
 		window.location.href = "jsp/userManager/userInfo.html";
 	});
+	
+	//点击目录获取该目录下的笔记列表
+	function getNoteListByMenu(menuId) {
+		$.ajax({
+			url:"http://localhost:8080/wozi/note/noteManager_listNoteByDirectMenuId",
+			data:{
+				"currentMenuNodeId":menuId,
+			},
+			success:function(rs){
+				if(rs.code === "0"){
+					var divs = $("#menu_list>div");
+					if(divs.length>0){
+						divs.remove();
+				}
+					var list =rs.data;
+					var strLine = "";
+					$.each(list, function(i,c){
+						var time = c.uploadTime;
+						time = time.replace("T"," ");
+						strLine+='<div><i><span class="glyphicon glyphicon-list-alt">&nbsp;</span></i><span>'+c.title+'</span><span style="display:block;color:#8c8c8c;margin-top: 4px;font-size: 12px;line-height: 1.35;">'+time+'</span></div>';
+					});
+					$("#menu_list").append(strLine);
+					addNoteHover();
+				}
+			}
+		});
+	}
 	
 	//创建目录节点
 	function createMenuNode(parnetId,newNodeId){
@@ -407,6 +435,7 @@
 					.bind("select_node.jstree", function (e, data) {
 				       // console.log(data.changed.selected); // 左键右键点击目录的id
 				        currentMenuId = data.node.id;//保存当前选中的目录id
+				        getNoteListByMenu(data.node.original.realId);
 				        //console.log(data.changed.deselected); // 跳出某个目录的id
 				    });
 			}

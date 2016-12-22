@@ -74,5 +74,12 @@ create table tb_wozi_note_menu (
 
 /* 2016-12-19 end */
 
-
+/* 2016-12-23 begin */
+	ALTER TABLE `wozi`.`tb_wozi_note` 
+	ADD CONSTRAINT `fk_tb_wozi_note_1`
+  	FOREIGN KEY (`ref_user`)
+  	REFERENCES `wozi`.`tbwoziuser` (`id`)
+  	ON DELETE NO ACTION
+  	ON UPDATE NO ACTION;
+/* 2016-12-23 end */
 

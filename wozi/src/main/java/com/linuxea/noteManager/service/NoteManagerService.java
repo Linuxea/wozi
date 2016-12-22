@@ -2,6 +2,7 @@ package com.linuxea.noteManager.service;
 
 import java.util.List;
 
+import com.linuxea.noteManager.po.TbWoZiNotePO;
 import com.linuxea.noteManager.po.TbWoziNoteMenuPO;
 
 /*
@@ -28,4 +29,10 @@ public interface NoteManagerService {
 	 * 删除目录及其子目录
 	 */
 	public boolean deleteMenuNode(String curentMenuId ,String userId) throws Exception;
+	
+	/*
+	 * 通过目录Id来获取其下的笔记列表
+	 */
+	public List<TbWoZiNotePO> noteList(String directMenuId,  String userId) throws Exception;
+	
 }
