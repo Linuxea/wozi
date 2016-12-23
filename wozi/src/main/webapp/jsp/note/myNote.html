@@ -157,7 +157,20 @@
 		    line-height: 1.5;
 		    border-radius: 3px;
 		    /* margin-left: 43px; */
-		    margin-left: 726px;
+		    margin-left: 526px;
+    }
+    .note-title{
+    	width: 172px;
+	    height: 16px;
+	    padding: 6px 12px;
+	    font-size: 14px;
+	    line-height: 1.42857143;
+	    color: #555;
+	    background-color: #fff;
+	    background-image: none;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    display: inline;
     }
 	</style>
 </head>
@@ -230,7 +243,10 @@
 <!-- 笔记编辑主体开始-->
 	<div class="panel panel-primary note-main">
 		<div class="panel-heading">
-			<h3 class="panel-title"><span>笔记编辑主体</span><span><button type="button" class="btn note-save btn-info">save!</button></span></h3>
+			<h3 class="panel-title"><span>笔记编辑主体</span><span>
+				<!-- 标题框 -->
+				<input type="text" class="form-control note-title" placeholder="请输入标题"/>
+			</span><span><button type="button" class="btn note-save btn-info">save!</button></span></h3>
 		</div>
 		<div class="panel-body">
 			 <script id="editor" type="text/plain" style="width:100%;height:100%;"></script>
@@ -291,7 +307,7 @@
 					$.each(list, function(i,c){
 						var time = c.uploadTime;
 						time = time.replace("T"," ");
-						strLine+='<div><i><span class="glyphicon glyphicon-list-alt">&nbsp;</span></i><span>'+c.title+'</span><span style="display:block;color:#8c8c8c;margin-top: 4px;font-size: 12px;line-height: 1.35;">'+time+'</span></div>';
+						strLine+='<div><i><span id='+c.id+' class="glyphicon glyphicon-list-alt">&nbsp;</span></i><span>'+c.title+'</span><span style="display:block;color:#8c8c8c;margin-top: 4px;font-size: 12px;line-height: 1.35;">'+time+'</span></div>';
 					});
 					$("#menu_list").append(strLine);
 					addNoteHover();
@@ -382,12 +398,12 @@
 	});
 	
 	$(document).on("click",".note-save", function(){
-		debugger;
 		var htmlContent = UE.getEditor('editor').getAllHtml();
 		var tbWoZiNotePO = {};
 		tbWoZiNotePO.title = "测试标题";
 		tbWoZiNotePO.content = htmlContent;
 		tbWoZiNotePO.refMenu = currentMenuId;
+		tbWoZiNotePO.title = $("input.note-title").val();
 		$.ajax({
 			url:"http://localhost:8080/wozi/note/noteManager_ajaxAddNote",
 			type:"post",
@@ -397,7 +413,7 @@
 			dataType:"json",
 			success:function(rs){
 				if(rs.code==="0") {
-					alert("保存成功");
+					getNoteListByMenu(currentMenuId);
 				}
 			},
 		});

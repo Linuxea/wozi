@@ -9,8 +9,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 import javax.sql.DataSource;
 
@@ -88,6 +93,7 @@ public class TestDao {
 	public void test43() {
 		Map<String,String> myMap = new HashMap<>();
 		myMap.put("test", "test");
+		myMap.put("name", "linuxea");
 		Set<String> sets = myMap.keySet();
 		for(String temp:sets) {
 			System.out.println(myMap.get(temp));
@@ -107,5 +113,35 @@ public class TestDao {
 		System.out.println(s);
 	}
 	
+	@org.junit.Test
+	public void test99() {
+		        Callable<Integer> callable = new Callable<Integer>() {
+		            public Integer call() throws Exception {
+		                return new Random().nextInt(100);
+		            }
+		        };
+		        FutureTask<Integer> future = new FutureTask<Integer>(callable);
+		        new Thread(future).start();
+		        try {
+		            Thread.sleep(5000);// 可能做一些事情
+		            System.out.println(future.get());
+		        } catch (InterruptedException e) {
+		            e.printStackTrace();
+		        } catch (ExecutionException e) {
+		            e.printStackTrace();
+		    }
+	}
+	
+	@org.junit.Test
+	public void test9(){
+		TreeSet set = new TreeSet();
+		set.add("a");
+		set.add("b");
+		set.add("ee");
+		Iterator iter = set.iterator();
+		while(iter.hasNext()){
+			System.out.println(iter.next());
+		}
+	}
 	
 }
