@@ -225,4 +225,19 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 		}, new NoteListRowMapper());
 		return noteList;
 	}
+	@SuppressWarnings("all")
+	@Override
+	public TbWoZiNotePO getNoteById(String noteId) throws Exception {
+		List<TbWoZiNotePO> noteList = new ArrayList<>();
+		String dataSql = "select * from tb_wozi_note where id = ? ";
+		noteList = jdbcTemplate.query(dataSql, new PreparedStatementSetter(){
+
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, noteId);
+			}
+		}, new NoteListRowMapper());
+		return noteList.get(0);
+	}
+	
 }

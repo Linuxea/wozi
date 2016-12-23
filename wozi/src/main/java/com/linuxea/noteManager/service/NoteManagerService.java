@@ -40,4 +40,9 @@ public interface NoteManagerService {
 	 */
 	public boolean ajaxAddNote(TbWoZiNotePO tbWoZiNotePo) throws Exception;
 	
+	/*
+	 * 通过笔记id来获取笔记
+	 */
+	public TbWoZiNotePO getNoteById(String noteId) throws Exception;
+	
 }

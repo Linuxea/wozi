@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<base href="http://localhost:8080/wozi/">
+	<base href="http://192.168.0.100:8080/wozi/">
 	<title>注册页面</title>
 	<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
 	<script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -88,7 +88,7 @@
 <script>
 	$(document).on("click","#submit",function(){
 		$("#registForm").ajaxSubmit({
-			url:"http://localhost:8080/wozi/user/userManager_ajaxRegist",
+			url:"http://192.168.0.100:8080/wozi/user/userManager_ajaxRegist",
 			dataType:"json",
 			success:function(rs){
 				if(rs.code!=="0"){

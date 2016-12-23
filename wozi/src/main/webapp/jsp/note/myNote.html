@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<base href="http://localhost:8080/wozi/">
+	<base href="http://192.168.0.100:8080/wozi/">
     <title>我知</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 	<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -121,12 +121,12 @@
     /* 目录面板 为了y轴上可滑动 */
     .panel-menu{
     	padding: 4px;
-    	height: 486px;
+    	height: 525px;
     	overflow-y:scroll;
     }
     #menu_list {
     	padding: 4px;
-    	height: 486px;
+    	height: 525px;
     	overflow-y:scroll;
     }
     #menu_list>div{
@@ -280,6 +280,7 @@
 		var paramObj = handleSearchParams(params);
 		$("button.user-btn").text(paramObj.name);
 		var currentMenuId;//声明一个全局变量来保存每个操作当前目录的Id
+		var menuId;//声明一个全局变量来保存每一个笔记的Id
 		//取得用户目录json格式数据
 		getMenu();
 	  });
@@ -292,7 +293,7 @@
 	//点击目录获取该目录下的笔记列表
 	function getNoteListByMenu(menuId) {
 		$.ajax({
-			url:"http://localhost:8080/wozi/note/noteManager_listNoteByDirectMenuId",
+			url:"http://192.168.0.100:8080/wozi/note/noteManager_listNoteByDirectMenuId",
 			data:{
 				"currentMenuNodeId":menuId,
 			},
@@ -319,7 +320,7 @@
 	//创建目录节点
 	function createMenuNode(parnetId,newNodeId){
 		$.ajax({
-			url:"http://localhost:8080/wozi/note/noteManager_ajaxAddMenuNode",
+			url:"http://192.168.0.100:8080/wozi//note/noteManager_ajaxAddMenuNode",
 			type:"post",
 			data:{"directMenuParentId":parnetId,"newNodeId":newNodeId},
 			dataType:"json",
@@ -342,7 +343,7 @@
 			currentMenuId = currentMenuId[0];
 		}
 		$.ajax({
-			url:"http://localhost:8080/wozi/note/noteManager_reNameMenuNode",
+			url:"http://192.168.0.100:8080/wozi//note/noteManager_reNameMenuNode",
 			dataType:"json",
 			data:{
 				"currentMenuNodeId":currentMenuId,//currentMenuNodeId
@@ -363,7 +364,7 @@
 	
 	function delMenu(currentMenuId) {
 		$.ajax({
-			url:"http://localhost:8080/wozi/note/noteManager_delMenuNode",
+			url:"http://192.168.0.100:8080/wozi//note/noteManager_delMenuNode",
 			data:{
 				"currentMenuNodeId":currentMenuId,
 			},
@@ -402,10 +403,10 @@
 		var tbWoZiNotePO = {};
 		tbWoZiNotePO.title = "测试标题";
 		tbWoZiNotePO.content = htmlContent;
-		tbWoZiNotePO.refMenu = currentMenuId;
+		tbWoZiNotePO.refMenu = menuId;
 		tbWoZiNotePO.title = $("input.note-title").val();
 		$.ajax({
-			url:"http://localhost:8080/wozi/note/noteManager_ajaxAddNote",
+			url:"http://192.168.0.100:8080/wozi//note/noteManager_ajaxAddNote",
 			type:"post",
 			data:{
 				"tbWoZiNotePOStr":JSON.stringify(tbWoZiNotePO),
@@ -419,9 +420,29 @@
 		});
 	});
 	
+	$(document).on("click","#menu_list>div",function(){
+		//alert($(this).find("span").attr("id"));
+		$.ajax({
+			url:"http://192.168.0.100:8080/wozi//note/noteManager_ajaxGetNode",
+			dataType:"json",
+			data:{
+				"currentNoteId":$(this).find("span").attr("id"),
+			},
+			success:function(rs){
+				if(rs.code === "0"){
+					initUE(function(){
+						UE.getEditor('editor').setContent("");
+						UE.getEditor('editor').execCommand('insertHtml', rs.data.content);
+						$(".note-title").val(rs.data.title);
+					});
+				}
+			}
+		});
+	});
+	
 	function getMenu() {
 		$.ajax({
-			url:"http://localhost:8080/wozi/note/noteManager_handleNoteMenu",
+			url:"http://192.168.0.100:8080/wozi//note/noteManager_handleNoteMenu",
 			dataType:"json",
 			success:function(rs) {
 				 $('#jstree').jstree({
@@ -481,6 +502,7 @@
 					.bind("select_node.jstree", function (e, data) {
 				       // console.log(data.changed.selected); // 左键右键点击目录的id
 				        currentMenuId = data.node.id;//保存当前选中的目录id
+				        menuId = data.node.id;
 				        getNoteListByMenu(currentMenuId);
 				        //console.log(data.changed.deselected); // 跳出某个目录的id
 				    });
@@ -488,7 +510,7 @@
 		});
 	}
 	
-	function initUE() {
+	function initUE(callback) {
 		UE.getEditor('editor',{
 			"initialFrameHeight":380, //初始化高度
 			"initialContent":"",
@@ -507,6 +529,7 @@
 	            'print', 'preview', 'searchreplace', 'drafts', 'help'
 	        ]],
 		});//初始化编辑器
+		setTimeout(callback,100)//执行回调
 	}
 </script>
 </body>

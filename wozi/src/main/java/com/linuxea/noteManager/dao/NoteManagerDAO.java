@@ -45,4 +45,9 @@ public interface NoteManagerDAO {
 	 * 通过目录Id来获取其下的笔记列表
 	 */
 	public List<TbWoZiNotePO> noteList(String directMenuId, String userId) throws Exception;
+	
+	/*
+	 * 通过笔记id来获取笔记
+	 */
+	public TbWoZiNotePO getNoteById(String noteId) throws Exception;
 }
