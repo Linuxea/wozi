@@ -156,11 +156,9 @@
 		    font-size: 9px;
 		    line-height: 1.5;
 		    border-radius: 3px;
-		    /* margin-left: 43px; */
-		    margin-left: 526px;
     }
     .note-title{
-    	width: 172px;
+    	width: 320px;
 	    height: 16px;
 	    padding: 6px 12px;
 	    font-size: 14px;
@@ -253,7 +251,8 @@
 			<h3 class="panel-title"><span>笔记编辑主体</span><span>
 				<!-- 标题框 -->
 				<input type="text" class="form-control note-title" placeholder="请输入标题"/>
-			</span><span><button type="button" class="btn note-save btn-info">save!</button></span></h3>
+				</span><span><button type="button" class="btn note-save btn-info">save!</button></span>
+			</h3>
 		</div>
 		<div class="panel-body">
 			 <script id="editor" type="text/plain" style="width:100%;height:100%;"></script>
@@ -399,11 +398,12 @@
 			console.log("创建笔记成功" + currentMenuId);
 			var str = '<div><i><span class="glyphicon glyphicon-list-alt">&nbsp;</span></i><span>标题1</span><span style="display:block;color:#8c8c8c;margin-top: 4px;font-size: 12px;line-height: 1.35;">时间标签</span></div>';
 			$("#menu_list").prepend(str);
-			//debugger;
 			$("#menu_list>div:eq(0)").css("height","0").css("background","#fff").animate({height:"81px"}, 500 ,"swing",function(){
 			});
-			
 			initUE();
+			//旧内容清空
+			$("input.note-title").val("");
+			UE.getEditor('editor').setContent("");
 		}
 	});
 	
