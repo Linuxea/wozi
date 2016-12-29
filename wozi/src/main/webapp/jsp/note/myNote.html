@@ -290,6 +290,7 @@
 		var currentNoteId = "";//保存当前编辑的笔记
 		//取得用户目录json格式数据
 		getMenu();
+		findNode();
 	  });
 	
 	//点击用户名称跳转到用户信息详情页面
@@ -455,6 +456,13 @@
 		});
 	});
 	
+	function findNode(){
+		//查找笔记
+		$(document).on(".zu-top-search-input","keyup", function(){
+			console.log("aaa");
+		});
+	}
+	
 	function getMenu() {
 		$.ajax({
 			url:"http://192.168.0.100:8080/wozi//note/noteManager_handleNoteMenu",
@@ -529,6 +537,7 @@
 		UE.getEditor('editor',{
 			"initialFrameHeight":380, //初始化高度
 			"initialContent":"",
+			"maximumWords":9999,
 			"autoHeightEnabled":false,//关闭自动增高
 			"toolbars":[[ //按需要加载
 	            'fullscreen', 'source', '|', 'undo', 'redo', '|',
