@@ -239,5 +239,17 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 		}, new NoteListRowMapper());
 		return noteList.get(0);
 	}
+	@Override
+	public void updateNote(TbWoZiNotePO tbWoZiNotePO) {
+		String dataSql = "update tb_wozi_note set title = ?,content=? where id = ?";
+		jdbcTemplate.update(dataSql, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, tbWoZiNotePO.getTitle());
+				ps.setString(2, tbWoZiNotePO.getContent());
+				ps.setString(3, tbWoZiNotePO.getId());
+			}
+		});
+	}
 	
 }

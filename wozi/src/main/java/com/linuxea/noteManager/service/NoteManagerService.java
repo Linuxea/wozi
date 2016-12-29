@@ -45,4 +45,9 @@ public interface NoteManagerService {
 	 */
 	public TbWoZiNotePO getNoteById(String noteId) throws Exception;
 	
+	/*
+	 * 更新笔记
+	 */
+	public void updateNote(TbWoZiNotePO tbWoZiNotePO);
+	
 }

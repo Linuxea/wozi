@@ -50,4 +50,9 @@ public interface NoteManagerDAO {
 	 * 通过笔记id来获取笔记
 	 */
 	public TbWoZiNotePO getNoteById(String noteId) throws Exception;
+	
+	/*
+	 * 通过笔记id来更新笔记
+	 */
+	public void updateNote(TbWoZiNotePO tbWoZiNotePO);
 }

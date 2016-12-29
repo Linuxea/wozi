@@ -56,8 +56,13 @@ public class NoteManagerAction extends BaseAction{
 		JSONObject jo = JSON.parseObject(tbWoZiNotePOStr);
 		tbWoZiNotePO = JSON.toJavaObject(jo, TbWoZiNotePO.class);
 		tbWoZiNotePO.setRefUser(tbWoZiUser.getId());
-		this.noteManagerService.ajaxAddNote(tbWoZiNotePO);
-		this.setActionResult("0", "创建新笔记成功");		
+		if(tbWoZiNotePO.getId().equals("")){
+			this.noteManagerService.ajaxAddNote(tbWoZiNotePO);
+			this.setActionResult("0", "创建新笔记成功");		
+		}else{
+			this.noteManagerService.updateNote(tbWoZiNotePO);
+			this.setActionResult("0", "更新笔记成功");		
+		}
 		return this.SUCCESS;
 	}
 

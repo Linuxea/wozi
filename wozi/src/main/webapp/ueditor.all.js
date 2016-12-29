@@ -29544,7 +29544,7 @@ UE.registerUI('message', function(editor) {
 
 
 // adapter/autosave.js
-UE.registerUI('autosave', function(editor) {
+/*UE.registerUI('autosave', function(editor) {
     var timer = null,uid = null;
     editor.on('afterautosave',function(){
         clearTimeout(timer);
@@ -29561,7 +29561,7 @@ UE.registerUI('autosave', function(editor) {
         },2000)
     })
 
-});
+});*/
 
 
 

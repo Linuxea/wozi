@@ -61,5 +61,9 @@ public class NoteManagerServiceImpl implements NoteManagerService {
 	public TbWoZiNotePO getNoteById(String noteId) throws Exception {
 		return this.noteManagerDAO.getNoteById(noteId);
 	}
+	@Override
+	public void updateNote(TbWoZiNotePO tbWoZiNotePO) {
+		this.noteManagerDAO.updateNote(tbWoZiNotePO);
+	}
 	
 }
