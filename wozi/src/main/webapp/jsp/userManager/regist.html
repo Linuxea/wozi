@@ -91,7 +91,9 @@
 			url:"http://192.168.0.100:8080/wozi/user/userManager_ajaxRegist",
 			dataType:"json",
 			success:function(rs){
-				if(rs.code!=="0"){
+				if(rs.code==="0"){
+					window.location.href="jsp/note/myNote.html?name=" + rs.data;
+				}else{
 					if($(".alert").length){
 						$(".alert").remove();
 					}

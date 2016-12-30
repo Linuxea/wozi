@@ -59,7 +59,7 @@ public class UserManagerAction extends BaseAction {
 			String id = this.userManagerService.userRegist(tbWoZiUser);
 			tbWoZiUser.setId(id);//将id也保存在session中
 			super.getSession().put("user", tbWoZiUser);//存放用户信息
-			this.setActionResult("0", "新增用户"+tbWoZiUser.getUserName()+"成功");
+			this.setActionResult("0", "新增用户"+tbWoZiUser.getUserName()+"成功",tbWoZiUser.getUserName());
 		}
 		return this.SUCCESS;
 	}

@@ -78,7 +78,7 @@
 			success:function(rs){
 				if(rs.code==="0"){
 					window.location.href="jsp/note/myNote.html?name=" + rs.data;
-				}else if(rs.code!=="0"){
+				}else{
 					if($(".alert").length){
 						$(".alert").remove();
 					}
