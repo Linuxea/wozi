@@ -167,4 +167,13 @@ public class NoteManagerAction extends BaseAction{
 	public void setTbWoZiNotePOStr(String tbWoZiNotePOStr) {
 		this.tbWoZiNotePOStr = tbWoZiNotePOStr;
 	}
+	
+	public String delNodeById() throws Exception{
+		if(this.noteManagerService.delNodeById(currentNoteId)){
+			this.setActionResult("0", "删除日记成功");
+		}else{
+			this.setActionResult("-1", "删除日记失败");
+		}
+		return this.SUCCESS;
+	}
 }

@@ -6,6 +6,11 @@
     <title>我知</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 	<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- jqContext begin -->
+    <link href="plugins/jqContextMenu/src/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+    <link href="plugins/jqContextMenu/screen.css" rel="stylesheet" type="text/css" />
+    <link href="plugins/jqContextMenu/prettify/prettify.sunburst.css" rel="stylesheet" type="text/css" />
+    <!-- jqContextmenu end -->
 	<style>
 	.container-fluid {
     background: #337ab7;
@@ -261,6 +266,12 @@
 <!-- 笔记编辑主体结束 -->
 </div>
 <script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- jqContext begin -->
+<script src="plugins/jqContextMenu/src/jquery.ui.position.js" type="text/javascript"></script>
+<script src="plugins/jqContextMenu/src/jquery.contextMenu.js" type="text/javascript"></script>
+<script src="plugins/jqContextMenu/screen.js" type="text/javascript"></script>
+<script src="plugins/jqContextMenu/prettify/prettify.js" type="text/javascript"></script>
+<!-- jqContext end -->
 <script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="ueditor.config.js"></script>
@@ -555,6 +566,36 @@
 		});//初始化编辑器
 		setTimeout(callback,100)//执行回调
 	}
+	
+	//create right click menu
+    $.contextMenu({
+        selector: '#menu_list>div', 
+        callback: function(key, options) {
+            var nodeId = $(this).find("i>span").attr("id");
+            $.ajax({
+            	url:"http://192.168.0.100:8080/wozi//note/noteManager_delNodeById",
+            	dataType:"json",
+            	data:{"currentNoteId":nodeId},
+            	success:function(rs){
+            		if(rs.code === '0'){
+            			getNoteListByMenu(currentMenuId);//重新加载日记列表
+            			alert(rs.desc);
+            		}else{
+            			alert(rs.desc)
+            		}
+            	}
+            });
+        },
+        items: {
+            //"edit": {name: "Edit", icon: "edit"},
+           // "cut": {name: "Cut", icon: "cut"},
+            //"copy": {name: "Copy", icon: "copy"},
+            //"paste": {name: "Paste", icon: "paste"},
+            "delete": {name: "删除", icon: "delete"},
+           // "sep1": "---------",
+           // "quit": {name: "退出", icon: "quit"}
+        }
+    });
 </script>
 </body>
 </html>

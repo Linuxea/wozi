@@ -251,5 +251,18 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 			}
 		});
 	}
+	@Override
+	public boolean delNodeById(String currentNoteId) throws Exception {
+		boolean isDelSuccessfully = false;
+		String delSql = "delete from tb_wozi_note where id=?";
+		this.jdbcTemplate.update(delSql, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, currentNoteId);
+			}
+		});
+		isDelSuccessfully = true;
+		return isDelSuccessfully;
+	}
 	
 }

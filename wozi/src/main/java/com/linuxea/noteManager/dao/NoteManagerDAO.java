@@ -54,5 +54,7 @@ public interface NoteManagerDAO {
 	/*
 	 * 通过笔记id来更新笔记
 	 */
-	public void updateNote(TbWoZiNotePO tbWoZiNotePO);
+	public void updateNote(TbWoZiNotePO tbWoZiNotePO)throws Exception;
+
+	public boolean delNodeById(String currentNoteId)throws Exception;
 }

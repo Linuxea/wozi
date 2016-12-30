@@ -62,8 +62,12 @@ public class NoteManagerServiceImpl implements NoteManagerService {
 		return this.noteManagerDAO.getNoteById(noteId);
 	}
 	@Override
-	public void updateNote(TbWoZiNotePO tbWoZiNotePO) {
+	public void updateNote(TbWoZiNotePO tbWoZiNotePO) throws Exception {
 		this.noteManagerDAO.updateNote(tbWoZiNotePO);
+	}
+	@Override
+	public boolean delNodeById(String currentNoteId) throws Exception {
+		return this.noteManagerDAO.delNodeById(currentNoteId);
 	}
 	
 }

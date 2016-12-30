@@ -48,6 +48,11 @@ public interface NoteManagerService {
 	/*
 	 * 更新笔记
 	 */
-	public void updateNote(TbWoZiNotePO tbWoZiNotePO);
+	public void updateNote(TbWoZiNotePO tbWoZiNotePO) throws Exception;
+	
+	/*
+	 * 删除笔记
+	 */
+	public boolean delNodeById(String currentNoteId) throws Exception;
 	
 }

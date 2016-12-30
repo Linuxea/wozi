@@ -80,4 +80,9 @@ create table tb_wozi_note(
 
 <!-- 2016-12-23 end   -->
 
+<!-- 2016-12-30 begin -->
+删除日记：
+使用jsContext插件
+<!-- 2016-12-30 end -->
+
 
