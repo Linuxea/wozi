@@ -302,6 +302,7 @@
 		//取得用户目录json格式数据
 		getMenu();
 		findNode();
+		addDel();
 	  });
 	
 	//点击用户名称跳转到用户信息详情页面
@@ -568,34 +569,36 @@
 	}
 	
 	//create right click menu
-    $.contextMenu({
-        selector: '#menu_list>div', 
-        callback: function(key, options) {
-            var nodeId = $(this).find("i>span").attr("id");
-            $.ajax({
-            	url:"http://192.168.0.100:8080/wozi//note/noteManager_delNodeById",
-            	dataType:"json",
-            	data:{"currentNoteId":nodeId},
-            	success:function(rs){
-            		if(rs.code === '0'){
-            			getNoteListByMenu(currentMenuId);//重新加载日记列表
-            			alert(rs.desc);
-            		}else{
-            			alert(rs.desc)
-            		}
-            	}
-            });
-        },
-        items: {
-            //"edit": {name: "Edit", icon: "edit"},
-           // "cut": {name: "Cut", icon: "cut"},
-            //"copy": {name: "Copy", icon: "copy"},
-            //"paste": {name: "Paste", icon: "paste"},
-            "delete": {name: "删除", icon: "delete"},
-           // "sep1": "---------",
-           // "quit": {name: "退出", icon: "quit"}
-        }
-    });
+    function addDel(){
+    	$.contextMenu({
+            selector: '#menu_list>div', 
+            callback: function(key, options) {
+                var nodeId = $(this).find("i>span").attr("id");
+                $.ajax({
+                	url:"http://192.168.0.100:8080/wozi//note/noteManager_delNodeById",
+                	dataType:"json",
+                	data:{"currentNoteId":nodeId},
+                	success:function(rs){
+                		if(rs.code === '0'){
+                			getNoteListByMenu(currentMenuId);//重新加载日记列表
+                			//alert(rs.desc);
+                		}else{
+                			alert(rs.desc)
+                		}
+                	}
+                });
+            },
+            items: {
+                //"edit": {name: "Edit", icon: "edit"},
+               // "cut": {name: "Cut", icon: "cut"},
+                //"copy": {name: "Copy", icon: "copy"},
+                //"paste": {name: "Paste", icon: "paste"},
+                "delete": {name: "删除", icon: "delete"},
+               // "sep1": "---------",
+               // "quit": {name: "退出", icon: "quit"}
+            }
+        });
+	}
 </script>
 </body>
 </html>
