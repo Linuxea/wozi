@@ -17,6 +17,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.stereotype.Repository;
 
+import com.linuxea.userManager.PwdUtil;
 import com.linuxea.userManager.dao.UserManagerDAO;
 import com.linuxea.userManager.vo.TbWoZiUser;
 
@@ -53,7 +54,7 @@ public class UserManagerDAOImpl implements UserManagerDAO {
 				pstmt.setString(1,id );
 				pstmt.setString(2, tbWoZiUser.getUserName());
 				pstmt.setString(3, tbWoZiUser.getEmail());
-				pstmt.setString(4, tbWoZiUser.getPassword());
+				pstmt.setString(4, PwdUtil.changeToAnscii(tbWoZiUser.getPassword()));
 				pstmt.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
 			}
 			
@@ -70,7 +71,7 @@ public class UserManagerDAOImpl implements UserManagerDAO {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, tbWoZiUser.getUserName());
-				ps.setString(2, tbWoZiUser.getPassword());
+				ps.setString(2, PwdUtil.changeToAnscii(tbWoZiUser.getPassword()));
 			}
 		}, new  RowCallbackHandler(){
 			@Override

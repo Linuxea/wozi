@@ -83,3 +83,7 @@ create table tb_wozi_note_menu (
   	ON UPDATE NO ACTION;
 /* 2016-12-23 end */
 
+<!-- 2016-12-30 begin -->
+	ALTER TABLE `wozi`.`tbwoziuser` 
+CHANGE COLUMN `password` `password` VARCHAR(250) CHARACTER SET 'utf8' NULL DEFAULT NULL ;
+<!-- 2016-12-30 end -->

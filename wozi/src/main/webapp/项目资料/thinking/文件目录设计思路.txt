@@ -83,6 +83,11 @@ create table tb_wozi_note(
 <!-- 2016-12-30 begin -->
 删除日记：
 使用jsContext插件
+
+明文密码加密
+将明文密码转化为对应的anscii表。噗....
+ALTER TABLE `wozi`.`tbwoziuser` 
+CHANGE COLUMN `password` `password` VARCHAR(250) CHARACTER SET 'utf8' NULL DEFAULT NULL ;
 <!-- 2016-12-30 end -->
 
 
