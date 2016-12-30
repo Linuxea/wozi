@@ -39,8 +39,10 @@ h2 {
 }
 
 h3 { 
-    text-align: center; 
     color: #2c879b; 
+    /*
+    text-align: center; 2016-12-30修改
+    */
 }
 
 a { 
