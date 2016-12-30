@@ -146,4 +146,16 @@ public class UserManagerDAOImpl implements UserManagerDAO {
 			}
 		});
 	}
+	@Override
+	public boolean updateLastLoginTime(String userName) throws Exception {
+		String updateSql = "update tbwoziuser set lastlogindate = ? where username=?";
+		this.jdbcTemplate.update(updateSql, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+				ps.setString(2, userName);
+			}
+		});
+		return true;
+	}
 }

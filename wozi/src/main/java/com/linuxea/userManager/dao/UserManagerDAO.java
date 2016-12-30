@@ -21,4 +21,6 @@ public interface UserManagerDAO {
 	
 	public void insertRootMenuForNewUser(String userId) throws Exception;
 
+	boolean updateLastLoginTime(String userName) throws Exception;
+
 }

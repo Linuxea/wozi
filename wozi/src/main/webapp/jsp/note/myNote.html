@@ -293,7 +293,6 @@
 	}
 	
 	$(function () {
-		debugger;
 		var params = window.location.search;
 		var paramObj = handleSearchParams(params);
 		$("button.user-btn").text(paramObj.name);
@@ -582,7 +581,6 @@
                 	success:function(rs){
                 		if(rs.code === '0'){
                 			getNoteListByMenu(currentMenuId);//重新加载日记列表
-                			//alert(rs.desc);
                 		}else{
                 			alert(rs.desc)
                 		}
@@ -590,13 +588,7 @@
                 });
             },
             items: {
-                //"edit": {name: "Edit", icon: "edit"},
-               // "cut": {name: "Cut", icon: "cut"},
-                //"copy": {name: "Copy", icon: "copy"},
-                //"paste": {name: "Paste", icon: "paste"},
                 "delete": {name: "删除", icon: "delete"},
-               // "sep1": "---------",
-               // "quit": {name: "退出", icon: "quit"}
             }
         });
 	}

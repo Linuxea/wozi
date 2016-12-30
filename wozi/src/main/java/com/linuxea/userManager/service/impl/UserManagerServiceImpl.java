@@ -39,7 +39,11 @@ public class UserManagerServiceImpl implements UserManagerService {
 	}
 	@Override
 	public boolean ajaxLogin(TbWoZiUser tbWoZiUser) throws Exception {
-		return this.userManagerDAO.ajaxLogin(tbWoZiUser);
+		if(this.userManagerDAO.ajaxLogin(tbWoZiUser)){
+			//如果登录成功则更新用户最后登录时间
+			return  userManagerDAO.updateLastLoginTime(tbWoZiUser.getUserName());
+		}
+		return false;
 	}
 	@Override
 	public boolean isUserExist(TbWoZiUser tbWoZiUser) throws Exception {
