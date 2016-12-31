@@ -20,9 +20,6 @@
 <li>本项目将采用基于MVVM架构来实现，具体框架可能是后台strus2+spring+JDBC封装层+前台angular+HTML+CSS</li>
 <li>也可能采用SpringMVC+MyBatis+angular+html+css来实现，后台与前端的数据交互格式采用当前的JSON</li>
 </ul>
-林修论
-2016.12.13
-
 
 
  ![image](https://github.com/Linuxea/wozi/blob/master/wozi/src/main/webapp/%E9%A1%B9%E7%9B%AE%E8%B5%84%E6%96%99/%E5%9B%BE%E7%89%87/main.png)
