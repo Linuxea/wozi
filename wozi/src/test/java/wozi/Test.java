@@ -2,10 +2,7 @@ package wozi;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import com.sun.istack.internal.logging.Logger;
 
@@ -37,6 +34,12 @@ public class Test {
 	public void testSqlDate() {
 		java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
 		System.out.println(date);
+	}
+	
+	@org.junit.Test
+	public void test3() {
+		System.out.println("abc");
+		System.out.println("用来测试提交是否能成功");
 	}
 
 }
