@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<base href="http://192.168.0.100:8080/wozi/">
+	<base href="http://192.168.0.102:8080/wozi/">
     <title>我知</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 	<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -313,7 +313,7 @@
 	//点击目录获取该目录下的笔记列表
 	function getNoteListByMenu(menuId) {
 		$.ajax({
-			url:"http://192.168.0.100:8080/wozi/note/noteManager_listNoteByDirectMenuId",
+			url:"http://192.168.0.102:8080/wozi/note/noteManager_listNoteByDirectMenuId",
 			data:{
 				"currentMenuNodeId":menuId,
 			},
@@ -340,7 +340,7 @@
 	//创建目录节点
 	function createMenuNode(parnetId,newNodeId){
 		$.ajax({
-			url:"http://192.168.0.100:8080/wozi//note/noteManager_ajaxAddMenuNode",
+			url:"http://192.168.0.102:8080/wozi//note/noteManager_ajaxAddMenuNode",
 			type:"post",
 			data:{"directMenuParentId":parnetId,"newNodeId":newNodeId},
 			dataType:"json",
@@ -363,7 +363,7 @@
 			currentMenuId = currentMenuId[0];
 		}
 		$.ajax({
-			url:"http://192.168.0.100:8080/wozi//note/noteManager_reNameMenuNode",
+			url:"http://192.168.0.102:8080/wozi//note/noteManager_reNameMenuNode",
 			dataType:"json",
 			data:{
 				"currentMenuNodeId":currentMenuId,//currentMenuNodeId
@@ -384,7 +384,7 @@
 	
 	function delMenu(currentMenuId) {
 		$.ajax({
-			url:"http://192.168.0.100:8080/wozi//note/noteManager_delMenuNode",
+			url:"http://192.168.0.102:8080/wozi//note/noteManager_delMenuNode",
 			data:{
 				"currentMenuNodeId":currentMenuId,
 			},
@@ -428,7 +428,7 @@
 		tbWoZiNotePO.refMenu = menuId;
 		tbWoZiNotePO.title = $("input.note-title").val();
 		$.ajax({
-			url:"http://192.168.0.100:8080/wozi//note/noteManager_ajaxAddNote",
+			url:"http://192.168.0.102:8080/wozi//note/noteManager_ajaxAddNote",
 			type:"post",
 			data:{
 				"tbWoZiNotePOStr":JSON.stringify(tbWoZiNotePO),
@@ -449,7 +449,7 @@
 		//alert($(this).find("span").attr("id"));
 		currentNoteId = $(this).find("span").attr("id");
 		$.ajax({
-			url:"http://192.168.0.100:8080/wozi//note/noteManager_ajaxGetNode",
+			url:"http://192.168.0.102:8080/wozi//note/noteManager_ajaxGetNode",
 			dataType:"json",
 			data:{
 				"currentNoteId":$(this).find("span").attr("id"),
@@ -476,7 +476,7 @@
 	
 	function getMenu() {
 		$.ajax({
-			url:"http://192.168.0.100:8080/wozi//note/noteManager_handleNoteMenu",
+			url:"http://192.168.0.102:8080/wozi//note/noteManager_handleNoteMenu",
 			dataType:"json",
 			success:function(rs) {
 				 $('#jstree').jstree({
@@ -574,7 +574,7 @@
             callback: function(key, options) {
                 var nodeId = $(this).find("i>span").attr("id");
                 $.ajax({
-                	url:"http://192.168.0.100:8080/wozi//note/noteManager_delNodeById",
+                	url:"http://192.168.0.102:8080/wozi//note/noteManager_delNodeById",
                 	dataType:"json",
                 	data:{"currentNoteId":nodeId},
                 	success:function(rs){
