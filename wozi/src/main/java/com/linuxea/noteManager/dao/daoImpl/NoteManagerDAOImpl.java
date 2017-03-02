@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -23,6 +22,8 @@ import org.springframework.stereotype.Repository;
 import com.linuxea.noteManager.dao.NoteManagerDAO;
 import com.linuxea.noteManager.po.TbWoZiNotePO;
 import com.linuxea.noteManager.po.TbWoziNoteMenuPO;
+
+import utils.UUIDUtil;
 
 /*
  *@author Linuxea
@@ -87,7 +88,7 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 				ps.setString(4, "0");
 				ps.setString(5, userId);
 				ps.setString(6, "0");
-				ps.setString(7, UUID.randomUUID().toString());
+				ps.setString(7, UUIDUtil.createId());
 			}
 		});
 		return true;
@@ -199,7 +200,7 @@ public class NoteManagerDAOImpl implements NoteManagerDAO{
 		jdbcTemplate.update(dataSql, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, UUID.randomUUID().toString());
+				ps.setString(1, UUIDUtil.createId());
 				ps.setString(2, tbWoZiNotePo.getRefMenu());
 				ps.setString(3, tbWoZiNotePo.getTitle());
 				ps.setString(4, tbWoZiNotePo.getContent());

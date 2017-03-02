@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.UUID;
-
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -17,6 +15,8 @@ import org.springframework.stereotype.Repository;
 
 import com.linuxea.FriendManager.dao.FriendManageDAO;
 import com.linuxea.FriendManager.po.FriendBean;
+
+import utils.UUIDUtil;
 
 /*
  *@author Linuxea
@@ -42,7 +42,7 @@ public class FriendManageDAOImpl implements FriendManageDAO{
 	@Override
 	public boolean sentAddNews(String addId, String selfId) throws Exception {
 		String insertSql = "insert into tb_wozi_friends(id,addperson,addedperson,addtime) values(?,?,?,?)";
-		String id = UUID.randomUUID().toString().replaceAll("-", "");
+		String id = UUIDUtil.createId();
 		int count = jdbcTemplate.update(insertSql, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {

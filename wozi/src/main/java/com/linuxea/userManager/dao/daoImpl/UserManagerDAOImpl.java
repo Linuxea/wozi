@@ -1,13 +1,11 @@
 package com.linuxea.userManager.dao.daoImpl;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -20,6 +18,8 @@ import org.springframework.stereotype.Repository;
 import com.linuxea.userManager.PwdUtil;
 import com.linuxea.userManager.dao.UserManagerDAO;
 import com.linuxea.userManager.vo.TbWoZiUser;
+
+import utils.UUIDUtil;
 
 
 /*
@@ -46,7 +46,7 @@ public class UserManagerDAOImpl implements UserManagerDAO {
 	public String userRegist(TbWoZiUser tbWoZiUser) throws Exception {
 		String dataSql = "insert into tbwoziuser (id,username,email,password,registdate) "
 				+ "  values (?,?,?,?,?)";
-		String id = UUID.randomUUID().toString();//做为返回值
+		String id = UUIDUtil.createId();//做为返回值
 		jdbcTemplate.update(dataSql, new PreparedStatementSetter(){
 
 			@Override
@@ -136,7 +136,7 @@ public class UserManagerDAOImpl implements UserManagerDAO {
 		jdbcTemplate.update(dataSql, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, UUID.randomUUID().toString());
+				ps.setString(1, UUIDUtil.createId());
 				ps.setString(2, "j1_0");
 				ps.setString(3, "#");
 				ps.setString(4, "root");
