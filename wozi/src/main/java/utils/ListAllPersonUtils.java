@@ -25,7 +25,7 @@ import beans.People;
  */
 
 /**
- * 列出除了自身之外的所有用户信息
+ * 列出所有用户信息
  * @author linuxea
  *
  */
@@ -37,7 +37,7 @@ public class ListAllPersonUtils {
 	 * @return
 	 * @throws SQLException 
 	 */
-	public List<People> listPersons() throws SQLException {
+	public static List<People> listPersons() throws SQLException {
 		List<People> peopleList = new ArrayList<>();
 		String querySql = "select * from tbwoziuser";
 		Connection conn = ConnectionUtils.getConnection();

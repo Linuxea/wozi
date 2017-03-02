@@ -95,6 +95,7 @@ create table tb_wozi_friends(
 	addperson varchar(36),
 	addedperson varchar(36),
 	addedAgree char(1) default '0' ,/**1表示同意 0表示不同意*/
+	addtime date,
 	constraint foreign key (addperson) references tbwoziuser(id) ON delete cascade,
 	constraint foreign key (addedperson) references tbwoziuser(id) ON delete cascade
 )engine=innoDB default charset=utf8
