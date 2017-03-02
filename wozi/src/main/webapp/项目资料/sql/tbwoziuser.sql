@@ -87,3 +87,16 @@ create table tb_wozi_note_menu (
 	ALTER TABLE `wozi`.`tbwoziuser` 
 CHANGE COLUMN `password` `password` VARCHAR(250) CHARACTER SET 'utf8' NULL DEFAULT NULL ;
 <!-- 2016-12-30 end -->
+
+<!--2017-3-3 begin -->
+"insert into 好友表(id,add,added,addTime) values(?,?,?,?)";
+create table tb_wozi_friends(
+	id varchar(36) primary key ,
+	addperson varchar(36),
+	addedperson varchar(36),
+	addedAgree char(1) default '0' ,/**1表示同意 0表示不同意*/
+	constraint foreign key (addperson) references tbwoziuser(id) ON delete cascade,
+	constraint foreign key (addedperson) references tbwoziuser(id) ON delete cascade
+)engine=innoDB default charset=utf8
+
+<!--2017-3-3 end -->
