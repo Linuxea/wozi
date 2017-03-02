@@ -52,11 +52,9 @@ public class FriendManageAction extends BaseAction {
 		if(null!=fb) {//表示已经发送过好友请求了
 			switch (fb.getAddedAgree()){
 				case "0"://对方还没同意
-					this.setActionResult("0", "你已经发送请求了，正在等等对方的同意");
-					break;
-				case "1":
-					this.setActionResult("0", "你们已经是好友啦!");
-					break;
+					this.setActionResult("0", "你已经发送请求了，正在等等对方的同意");break;
+				case "1"://已经是好友啦
+					this.setActionResult("0", "你们已经是好友啦!");break;
 				default:
 					break;
 			}
