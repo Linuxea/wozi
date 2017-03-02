@@ -8,5 +8,7 @@ package com.linuxea.FriendManager.dao;
  */
 
 public interface FriendManageDAO {
+	
+	
 
 }

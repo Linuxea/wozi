@@ -4,8 +4,9 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
  
 <struts>
-    <package name="" namespace="/" extends="json-default" >
-        <action name="" class="" method="{1}">
+    <package name="friendManage" namespace="/friendManage" extends="json-default" >
+        <action name="friendManage_*" 
+        		class="com.linuxea.FriendManager.action.FriendManageAction" method="{1}">
         	<result type="json" name="success">
         		<param name="root">map</param>
         	</result>
