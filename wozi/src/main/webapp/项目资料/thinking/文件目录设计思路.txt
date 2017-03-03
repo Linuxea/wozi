@@ -91,3 +91,10 @@ CHANGE COLUMN `password` `password` VARCHAR(250) CHARACTER SET 'utf8' NULL DEFAU
 <!-- 2016-12-30 end -->
 
 
+<!-- 2017-3-3 begin -->
+好友之间的关系存放在tb_wozi_friends表中
+分为添加人与被添加人两个字段
+还有一个被添加人的回复请求字段，0字符串表示不通过请求，1表示请求通过
+额外的字段有请求发送日期
+<!-- 2017-3-3 end -->
+
