@@ -1,8 +1,8 @@
-package com.linuxea.linuxea.dao.daoImpl;
+package com.linuxea.baseManager.dao.daoImpl;
 
 import java.util.List;
 
-import com.linuxea.linuxea.dao.BaseDAO;
+import com.linuxea.baseManager.dao.BaseDAO;
 
 /*
  *@author Linuxea

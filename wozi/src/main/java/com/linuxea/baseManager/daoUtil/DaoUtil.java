@@ -1,4 +1,4 @@
-package com.linuxea.linuxea.daoUtil;
+package com.linuxea.baseManager.daoUtil;
 
 import java.beans.PropertyVetoException;
 import java.sql.Connection;

@@ -1,4 +1,4 @@
-package com.linuxea.linuxea.dao;
+package com.linuxea.baseManager.dao;
 
 import java.util.List;
 

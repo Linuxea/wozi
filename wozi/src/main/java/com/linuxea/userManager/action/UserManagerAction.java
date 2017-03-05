@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import com.linuxea.linuxea.action.BaseAction;
+import com.linuxea.baseManager.action.BaseAction;
 import com.linuxea.userManager.service.UserManagerService;
 import com.linuxea.userManager.vo.TbWoZiUser;
 

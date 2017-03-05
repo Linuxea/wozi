@@ -8,6 +8,7 @@
 	<include file="com/linuxea/userManager/conf/userManager-struts.xml"></include>
 	<include file="com/linuxea/noteManager/conf/noteManager-struts.xml"></include>
 	<include file="com/linuxea/FriendManager/conf/friendManage-struts.xml"></include>
+	<include file="com/linuxea/linuxea/conf/base-struts.xml"></include>
    	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<constant name="struts.devMode" value="true" />
 	

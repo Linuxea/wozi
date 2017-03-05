@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.linuxea.linuxea.action.BaseAction;
+import com.linuxea.baseManager.action.BaseAction;
 import com.linuxea.noteManager.po.TbWoZiNotePO;
 import com.linuxea.noteManager.po.TbWoziNoteMenuPO;
 import com.linuxea.noteManager.service.NoteManagerService;

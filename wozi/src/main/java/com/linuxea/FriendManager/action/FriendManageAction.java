@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.linuxea.FriendManager.po.FriendBean;
 import com.linuxea.FriendManager.service.FriendManageService;
-import com.linuxea.linuxea.action.BaseAction;
+import com.linuxea.baseManager.action.BaseAction;
 
 import beans.People;
 import utils.ListAllPersonUtils;

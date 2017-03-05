@@ -1,13 +1,15 @@
-package com.linuxea.linuxea.action;
+package com.linuxea.baseManager.action;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.stereotype.Controller;
 
 import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionSupport;
+
 
 public class BaseAction  extends ActionSupport implements SessionAware{
 	private Logger logger = Logger.getLogger(BaseAction.class);

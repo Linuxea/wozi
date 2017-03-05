@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.linuxea.linuxea.daoUtil.DaoUtil;
+import com.linuxea.baseManager.daoUtil.DaoUtil;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 
