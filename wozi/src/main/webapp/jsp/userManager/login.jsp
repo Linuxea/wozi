@@ -1,13 +1,14 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>登录页面</title>
-	<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
-	<script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="../../plugins/js/Jquery-Form.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>登录界面jsp</title>
+<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
 </head>
+<body>
+
 <body>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -35,7 +36,7 @@
             </li> -->
         </ul>
          <ul class="nav navbar-nav navbar-right">
-      <li><a href="../../jsp/userManager/regist.html"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+      <li><a href="regist.jsp"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
     </ul>
     </div>
 	</div>
@@ -69,20 +70,19 @@
 	</div>
 </form>
 </div>
-<script src="../../js/common.js"></script>
+<script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../../plugins/js/Jquery-Form.js"></script>
 <script>
-	$(function(){
-		var ip = null;
-		ip = getIp();
-	});
 
 	$(document).on("click","#ajaxLogin", function(){
 		$("#loginForm").ajaxSubmit({
-			url:ip+"/wozi/user/userManager_ajaxLogin",
+			url:"<%=request.getContextPath() %>/user/userManager_ajaxLogin",
 			dataType:"json",
 			success:function(rs){
 				if(rs.code==="0"){
-					window.location.href="/jsp/note/myNote.html?name=" + rs.data;
+					debugger;
+					window.location.href="../note/MyNote.jsp?name=" + rs.data;
 				}else{
 					if($(".alert").length){
 						$(".alert").remove();

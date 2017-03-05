@@ -1,13 +1,11 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta charset="utf-8">
-	<base href="http://192.168.0.102:8080/wozi/">
-	<title>注册页面</title>
-	<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
-	<script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="plugins/js/Jquery-Form.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
 </head>
 <body>
 <div class="panel panel-default">
@@ -36,7 +34,7 @@
             </li> -->
         </ul>
          <ul class="nav navbar-nav navbar-right">
-      <li><a href="jsp/userManager/login.html"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+      <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
     </ul>
     </div>
 	</div>
@@ -85,14 +83,17 @@
 	</div>
 </form>
 </div>
+<script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../../plugins/js/Jquery-Form.js"></script>
 <script>
 	$(document).on("click","#submit",function(){
 		$("#registForm").ajaxSubmit({
-			url:"http://192.168.0.102:8080/wozi/user/userManager_ajaxRegist",
+			url:"<%=request.getContextPath() %>/user/userManager_ajaxRegist",
 			dataType:"json",
 			success:function(rs){
 				if(rs.code==="0"){
-					window.location.href="jsp/note/myNote.html?name=" + rs.data;
+					window.location.href="../jsp/note/myNote.html?name=" + rs.data;
 				}else{
 					if($(".alert").length){
 						$(".alert").remove();

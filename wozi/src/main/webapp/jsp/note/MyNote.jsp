@@ -1,17 +1,17 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta charset="utf-8">
-	<base href="http://192.168.0.102:8080/wozi/">
-    <title>我知</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 	<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
 	<!-- jqContext begin -->
-    <link href="plugins/jqContextMenu/src/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
-    <link href="plugins/jqContextMenu/screen.css" rel="stylesheet" type="text/css" />
-    <link href="plugins/jqContextMenu/prettify/prettify.sunburst.css" rel="stylesheet" type="text/css" />
-    <!-- jqContextmenu end -->
-	<style>
+    <link href="../../plugins/jqContextMenu/src/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+    <link href="../../plugins/jqContextMenu/screen.css" rel="stylesheet" type="text/css" />
+    <link href="../../plugins/jqContextMenu/prettify/prettify.sunburst.css" rel="stylesheet" type="text/css" />
+<style>
 	.container-fluid {
     background: #337ab7;
     border-bottom: 1px dotted white;
@@ -267,17 +267,17 @@
 </div>
 <script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <!-- jqContext begin -->
-<script src="plugins/jqContextMenu/src/jquery.ui.position.js" type="text/javascript"></script>
-<script src="plugins/jqContextMenu/src/jquery.contextMenu.js" type="text/javascript"></script>
-<script src="plugins/jqContextMenu/screen.js" type="text/javascript"></script>
-<script src="plugins/jqContextMenu/prettify/prettify.js" type="text/javascript"></script>
+<script src="../../plugins/jqContextMenu/src/jquery.ui.position.js" type="text/javascript"></script>
+<script src="../../plugins/jqContextMenu/src/jquery.contextMenu.js" type="text/javascript"></script>
+<script src="../../plugins/jqContextMenu/screen.js" type="text/javascript"></script>
+<script src="../../plugins/jqContextMenu/prettify/prettify.js" type="text/javascript"></script>
 <!-- jqContext end -->
 <script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="ueditor.all.js"> </script>
-<script type="text/javascript" charset="utf-8" src="lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" src="plugins/js/common.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../ueditor.all.js"> </script>
+<script type="text/javascript" charset="utf-8" src="../../lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="../../plugins/js/common.js"></script>
 <script>
 	$("a.navbar-brand").hover(function(){
 		//覆盖掉移动到该文字上面的默认样式
@@ -307,13 +307,13 @@
 	
 	//点击用户名称跳转到用户信息详情页面
 	$(document).on("click","button.user-btn", function(){
-		window.location.href = "jsp/userManager/userInfo.html";
+		window.location.href = "../userManager/userInfo.jsp";
 	});
 	
 	//点击目录获取该目录下的笔记列表
 	function getNoteListByMenu(menuId) {
 		$.ajax({
-			url:"http://192.168.0.102:8080/wozi/note/noteManager_listNoteByDirectMenuId",
+			url:"<%=request.getContextPath()%>/note/noteManager_listNoteByDirectMenuId",
 			data:{
 				"currentMenuNodeId":menuId,
 			},
@@ -340,7 +340,7 @@
 	//创建目录节点
 	function createMenuNode(parnetId,newNodeId){
 		$.ajax({
-			url:"http://192.168.0.102:8080/wozi//note/noteManager_ajaxAddMenuNode",
+			url:"<%=request.getContextPath()%>/note/noteManager_ajaxAddMenuNode",
 			type:"post",
 			data:{"directMenuParentId":parnetId,"newNodeId":newNodeId},
 			dataType:"json",
@@ -363,7 +363,7 @@
 			currentMenuId = currentMenuId[0];
 		}
 		$.ajax({
-			url:"http://192.168.0.102:8080/wozi//note/noteManager_reNameMenuNode",
+			url:"<%=request.getContextPath()%>/note/noteManager_reNameMenuNode",
 			dataType:"json",
 			data:{
 				"currentMenuNodeId":currentMenuId,//currentMenuNodeId
@@ -384,7 +384,7 @@
 	
 	function delMenu(currentMenuId) {
 		$.ajax({
-			url:"http://192.168.0.102:8080/wozi//note/noteManager_delMenuNode",
+			url:"<%=request.getContextPath()%>/note/noteManager_delMenuNode",
 			data:{
 				"currentMenuNodeId":currentMenuId,
 			},
@@ -428,7 +428,7 @@
 		tbWoZiNotePO.refMenu = menuId;
 		tbWoZiNotePO.title = $("input.note-title").val();
 		$.ajax({
-			url:"http://192.168.0.102:8080/wozi//note/noteManager_ajaxAddNote",
+			url:"<%=request.getContextPath()%>/note/noteManager_ajaxAddNote",
 			type:"post",
 			data:{
 				"tbWoZiNotePOStr":JSON.stringify(tbWoZiNotePO),
@@ -449,7 +449,7 @@
 		//alert($(this).find("span").attr("id"));
 		currentNoteId = $(this).find("span").attr("id");
 		$.ajax({
-			url:"http://192.168.0.102:8080/wozi//note/noteManager_ajaxGetNode",
+			url:"<%=request.getContextPath()%>/note/noteManager_ajaxGetNode",
 			dataType:"json",
 			data:{
 				"currentNoteId":$(this).find("span").attr("id"),
@@ -476,7 +476,7 @@
 	
 	function getMenu() {
 		$.ajax({
-			url:"http://192.168.0.102:8080/wozi//note/noteManager_handleNoteMenu",
+			url:"<%=request.getContextPath()%>/note/noteManager_handleNoteMenu",
 			dataType:"json",
 			success:function(rs) {
 				 $('#jstree').jstree({
