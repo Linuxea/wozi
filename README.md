@@ -1,3 +1,5 @@
+#项目从ssh架构转移到jfianl+others中。https://github.com/Linuxea/wozi_jfinal
+
 #毕业设计答辩项目
 
 ##毕业设计项目构思
